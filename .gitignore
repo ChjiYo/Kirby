@@ -17,7 +17,6 @@
 *.mp4
 *.wmv
 *.hpp
-*.h
 *.dll
 *.lib
 *.a

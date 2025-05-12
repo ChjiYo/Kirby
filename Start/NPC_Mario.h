@@ -1,0 +1,22 @@
+#pragma once
+
+#include "Define.h"
+#include "Obj.h"
+
+class CNPC_Mario :public CObj
+{
+public:
+	CNPC_Mario();
+	~CNPC_Mario();
+
+public:
+	void Inter();
+
+public:
+	virtual void Initialize();
+	virtual int Update();
+	virtual void LateUpdate();
+	virtual void Render(HDC _hDC);
+	virtual void Release();
+};
+
