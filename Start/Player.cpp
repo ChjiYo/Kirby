@@ -95,16 +95,13 @@ CPlayer::~CPlayer()
 
 void CPlayer::KeyInput()
 {
-	if (!m_bInhalCheck)
+	if (CKeyMgr::GetInst().Key_Pressing(VK_SPACE))
 	{
-		m_fSpeed = 5.f;
-		if (CKeyMgr::GetInst().Key_Pressing(VK_SPACE))
-		{
-			m_fJumpTimer += 0.1f;
+		m_fJumpTimer += 0.1f;
 
-			if (m_fJumpTimer > 7.f)
-				m_fJumpTimer = 7.f;
-		}
+		if (m_fJumpTimer > 7.f)
+			m_fJumpTimer = 7.f;
+	}
 
 		if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
 		{
@@ -236,89 +233,6 @@ void CPlayer::KeyInput()
 			m_iInhalCount = 0;
 		}
 
-	}
-	else if (m_bInhalCheck)
-	{
-		m_fSpeed = 3.f;
-		if (CKeyMgr::GetInst().Key_Pressing(VK_DOWN))
-		{
-			m_fInhalTimer += 0.1f;
-
-			if (m_fInhalTimer > 3.f)
-				m_fInhalTimer = 3.f;
-		}
-
-		if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
-		{
-		//	m_fSpeed = 3.f;
-			m_eCurState = INHAL_WALK;
-			m_pFrameKey = L"Player_RIGHT";
-			m_szLRCheck = 'R';
-
-		}
-		else if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
-		{
-		//	m_fSpeed = 3.f;
-			m_eCurState = INHAL_WALK;
-			m_pFrameKey = L"Player_LEFT";
-			m_szLRCheck = 'L';
-		}
-		else if (CKeyMgr::GetInst().Key_Pressing('X'))
-		{
-		
-			if (m_szLRCheck == 'R')
-			{
-				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CStar>::Create(m_tInfo.fX, m_tInfo.fY, 0.f));
-			}
-			else if (m_szLRCheck == 'L')
-			{
-				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CStar>::Create(m_tInfo.fX, m_tInfo.fY, 180.f));
-			}
-
-			m_bInhalCheck = false;
-		}
-		else
-		{
-			m_eCurState = INHAL_IDLE;
-			m_bInputKeyCheck = false;
-		}
-
-		if (CKeyMgr::GetInst().Key_Pressing(VK_DOWN))
-		{
-			m_eCurState = ABSORB;
-
-			if (m_fInhalTimer >= 3.0f)
-			{
-				m_bInhalCheck = false;
-				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CChange>::Create(m_tInfo.fX, m_tInfo.fY));
-				m_iNowHp = GetHp();
-				m_iNowMoney = GetMoney();
-				switch (m_eMonsterID)
-				{
-				case MON_NONE:
-					break;
-
-				case MON_SPARKY:		
-					CObjMgr::GetInst().GetPlayerInfo()->SetDead();
-					CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Spark>::Create(m_tInfo.fX, m_tInfo.fY));		
-					break;
-
-				case MON_GUNTER:
-					CObjMgr::GetInst().GetPlayerInfo()->SetDead();
-					CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Ice>::Create(m_tInfo.fX, m_tInfo.fY));
-					break;
-
-				case MON_SLEEPY:
-					CObjMgr::GetInst().GetPlayerInfo()->SetDead();
-					CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Sleepy>::Create(m_tInfo.fX, m_tInfo.fY));
-					break;
-				}
-				dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetHpInput(m_iNowHp);
-				dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetMoneyInput(m_iNowMoney);
-			}
-		}
-	
-	}
 }
 
 void CPlayer::Jump()
