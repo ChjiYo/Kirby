@@ -46,6 +46,15 @@ public:
 	virtual PLAYERID GetPlayerID() { return m_ePlayerID; }
 	//void SetDamage();
 
+private:
+	void Mapping_SPACE();
+	void Mapping_LEFT();
+	void Mapping_RIGHT();
+	void Mapping_UP();
+	void Mapping_DOWN();
+	void Mapping_ATTACK();
+	void Mapping_MONE();
+
 
 public:
 	virtual void MotionChange();
@@ -123,5 +132,6 @@ protected:
 	DWORD m_dwLandTimer;
 
 	int m_iNowMoney;
+	
 };
 
