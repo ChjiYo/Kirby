@@ -47,14 +47,21 @@ public:
 	//void SetDamage();
 
 private:
-	void Mapping_SPACE();
-	void Mapping_LEFT();
-	void Mapping_RIGHT();
-	void Mapping_UP();
-	void Mapping_DOWN();
-	void Mapping_ATTACK();
-	void Mapping_MONE();
+//Å° ÇÒ´ç
 
+//Axis 
+	void BindAxis_LEFT();
+	void BindAxis_RIGHT();
+	void BindAxis_DOWN();
+	void BindAxis_MONE();
+
+//Action
+	void BindAction_JUMP();
+	void BindAction_ESCAPE();
+	void BindAction_ATTACK();
+
+	void BindAxis(int _iKey);
+	void BindAction(int _iKey);
 
 public:
 	virtual void MotionChange();
@@ -70,7 +77,6 @@ protected:
 	float m_fTime;
 
 	bool m_bJump;
-	float m_fJumpTimer;
 	bool m_bAirAttack;
 
 	STATE			m_eCurState;

@@ -35,11 +35,11 @@ CPlayer::CPlayer()
 	ZeroMemory(&m_eCurState, sizeof(m_eCurState));
 	ZeroMemory(&m_ePreState, sizeof(m_ePreState));
 
+	//Jump
 	m_bJump = false;
 	m_fPower = 0.f;
 	m_fTime = 0.f;
 	m_fSpeed = 5.0f;
-	m_fJumpTimer = 0.f;
 
 	m_dwBulletTimer = (DWORD)(GetTickCount64() / 1000);
 
@@ -97,62 +97,12 @@ CPlayer::~CPlayer()
 void CPlayer::KeyInput()
 {
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
-	//int iDownKey = CKeyMgr::GetInst().GetDownKey();
+	int iDownKey = CKeyMgr::GetInst().GetDownKey();
 
-	switch (iPressingKey)
-	{
-	case VK_SPACE:
-		Mapping_SPACE();
-		break;
+	BindAxis(iPressingKey);
+	BindAction(iDownKey);
 
-	case VK_LEFT:
-		Mapping_LEFT();
-		break;
-
-	case VK_RIGHT:
-		Mapping_RIGHT();
-		break;
-
-	case VK_UP:
-		Mapping_UP();
-		break;
-
-	case VK_DOWN:
-		Mapping_DOWN();
-		break;
-
-	case 'F':
-		Mapping_ATTACK();
-		break;
-
-	default:
-		Mapping_MONE();
-		break;
-	}
-
-	 if ((CKeyMgr::GetInst().Key_Down(VK_SPACE)))
-	{
-		m_fJumpTimer = 0.f;
-		m_fTime = 0.f;
-		iJumpCount++;
-		m_bJump = true;
-	
-		if (iJumpCount > 1)
-		{
-			//CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
-		}
-		else
-		{
-			//CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
-		}
-	}
-	else if (( m_bJump))
-	{
-		m_bJump = true;
-		m_eCurState = JUMP;
-	}
-
-
+//기타 키들 (추후에 업데이트 필요)
 	//else if (CKeyMgr::GetInst().Key_Pressing('Z'))
 	//{
 	//	m_iInhalCount++;
@@ -170,8 +120,6 @@ void CPlayer::KeyInput()
 	//{
 	//	dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
 	//}
-
-
 }
 
 void CPlayer::Jump()
@@ -183,7 +131,9 @@ void CPlayer::Jump()
 
 		if (m_bJump)
 		{
-			m_tInfo.fY -= (m_fPower + m_fJumpTimer) - 9.8f * m_fTime * 0.5f;
+			m_eCurState = JUMP;
+
+			m_tInfo.fY -= m_fPower - 9.8f * m_fTime * 0.5f;
 			m_fTime += 0.1f;
 
 			if (iJumpCount > 1)
@@ -215,7 +165,6 @@ void CPlayer::Jump()
 				m_bJump = false;
 				m_fTime = 0.f;
 				m_tInfo.fY = fY;
-				m_fJumpTimer = 0;
 				iJumpCount = 0;
 				m_eCurState = IDLE;
 			
@@ -384,17 +333,7 @@ void CPlayer::Hit()
 	}
 }
 
-void CPlayer::Mapping_SPACE()
-{
-	m_fJumpTimer += 0.1f;
-
-	if (m_fJumpTimer > 7.f)
-	{
-		m_fJumpTimer = 7.f;
-	}
-}
-
-void CPlayer::Mapping_LEFT()
+void CPlayer::BindAxis_LEFT()
 {
 	m_eCurState = WALK;
 	m_szLRCheck = 'L';
@@ -406,7 +345,7 @@ void CPlayer::Mapping_LEFT()
 	}
 }
 
-void CPlayer::Mapping_RIGHT()
+void CPlayer::BindAxis_RIGHT()
 {
 	m_eCurState = WALK;
 	m_szLRCheck = 'R';
@@ -419,7 +358,58 @@ void CPlayer::Mapping_RIGHT()
 	}
 }
 
-void CPlayer::Mapping_UP()
+void CPlayer::BindAxis_DOWN()
+{
+	m_eCurState = SIT;
+
+	if ((CKeyMgr::GetInst().Key_Pressing('X')) && m_fTackleTimer + 300 < (DWORD)GetTickCount64())
+	{
+
+		m_eCurState = TACKLE;
+		if (m_szLRCheck == 'R')
+		{
+			m_tInfo.fX += m_fSpeed;
+		}
+
+		else if (m_szLRCheck == 'L')
+		{
+			m_tInfo.fX -= m_fSpeed;
+		}
+		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
+		{
+			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
+		}
+
+	}
+
+}
+
+void CPlayer::BindAxis_MONE()
+{	
+	m_bInputKeyCheck = false;
+	m_eCurState = IDLE;
+	m_iInhalCount = 0;
+}
+
+
+void CPlayer::BindAction_JUMP()
+{
+	m_fTime = 0.f;
+	iJumpCount++;
+	m_bJump = true;
+	m_eCurState = JUMP;
+
+	//	if (iJumpCount > 1)
+	//	{
+	//		//CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
+	//	}
+	//	else
+	//	{
+	//		//CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
+	//	}
+}
+
+void CPlayer::BindAction_ESCAPE()
 {
 	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetDoorList(), CObjMgr::GetInst().GetPlayerList()))
 	{
@@ -451,43 +441,57 @@ void CPlayer::Mapping_UP()
 	}
 }
 
-void CPlayer::Mapping_DOWN()
-{
-	m_eCurState = SIT;
 
-	if ((CKeyMgr::GetInst().Key_Pressing('X')) && m_fTackleTimer + 300 < (DWORD)GetTickCount64())
-	{
-
-		m_eCurState = TACKLE;
-		if (m_szLRCheck == 'R')
-		{
-			m_tInfo.fX += m_fSpeed;
-		}
-
-		else if (m_szLRCheck == 'L')
-		{
-			m_tInfo.fX -= m_fSpeed;
-		}
-		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
-		{
-			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
-		}
-
-	}
-
-}
-
-void CPlayer::Mapping_ATTACK()
+void CPlayer::BindAction_ATTACK()
 {
 	m_eCurState = ATTACK;
 }
 
-void CPlayer::Mapping_MONE()
-{	
-	m_bInputKeyCheck = false;
-	m_eCurState = IDLE;
-	m_iInhalCount = 0;
+void CPlayer::BindAxis(int _iKey)
+{
+
+	switch (_iKey)
+	{
+	case VK_LEFT:
+		BindAxis_LEFT();
+		break;
+
+	case VK_RIGHT:
+		BindAxis_RIGHT();
+		break;
+
+	case VK_DOWN:
+		BindAxis_DOWN();
+		break;
+
+	default:
+		BindAxis_MONE();
+		break;
+	}
 }
+
+void CPlayer::BindAction(int _iKey)
+{
+	switch (_iKey)
+	{
+	case VK_SPACE:
+		BindAction_JUMP();
+		break;
+
+	case VK_UP:
+		BindAction_ESCAPE();
+		break;
+
+	case 'F':
+		BindAction_ATTACK();
+		break;
+
+	
+	default:
+		break;
+	}
+}
+
 
 void CPlayer::MotionChange()
 {
