@@ -49,11 +49,11 @@ void CPlayer_Origin::LRKey()
 		m_szInhalKeyCheck = true;
 		if (m_dwInhalTime + 500 <= (DWORD)GetTickCount64())
 		{
-			if (m_szLRCheck == 'R')
+			if (m_szMoveDir == 'R')
 			{
 				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CInhal>::Create(m_tInfo.fX + 470, m_tInfo.fY + 170));
 			}
-			else if (m_szLRCheck == 'L' )
+			else if (m_szMoveDir == 'L' )
 			{
 				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CInhal>::Create(m_tInfo.fX + 250, m_tInfo.fY + 170));
 			}
@@ -307,7 +307,6 @@ void CPlayer_Origin::Initialize()
 	m_tInfo = { SCALE_X* 0.5f,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
-	m_fPower = 10.f;
 
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Origin/Player_Origin__Left.bmp", L"Player_LEFT");
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Origin/Player_Origin_Right.bmp", L"Player_RIGHT");
@@ -327,13 +326,15 @@ void CPlayer_Origin::Initialize()
 	m_bFlyTimer++;
 
 	m_ePlayerID = PLAYER_CLASIC;
+
+	m_bInhalCheck = false;
 }
 
 int CPlayer_Origin::Update()
 {
 	if (m_bDead)
 		return OBJ_DISTORY;
-	m_fTackleTimer++;
+
 
 	__super::RectUpdate();
 

@@ -42,11 +42,11 @@ void CPlayer_Ice::LRKey()
 		//CSoundMgr::GetInst().PlaySoundW(L"07_Ice.wav", SOUND_EFFECT, m_fVolume);
 		if (m_dwAttackTimer + 100  <= (DWORD)GetTickCount64())
 		{
-			if(m_szLRCheck == 'L')
+			if(m_szMoveDir == 'L')
 			{
 				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CIce>::Create(m_tInfo.fX - 110, m_tInfo.fY - 20));
 			}
-			else if (m_szLRCheck == 'R')
+			else if (m_szMoveDir == 'R')
 			{
 				CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CIce>::Create(m_tInfo.fX + 110, m_tInfo.fY - 20));
 			}
@@ -132,7 +132,6 @@ void CPlayer_Ice::Initialize()
 	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,32.f,43.f }; 
 	m_bJump = false;
 	m_fTime = 0.f;
-	m_fPower = 10.f;
 
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Ice/Player_Ice_Left.bmp", L"Player_ICE_LEFT");
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Ice/Player_Ice_Right.bmp", L"Player_ICE_RIGHT");

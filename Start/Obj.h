@@ -37,7 +37,7 @@ public:
 
 	RENDERID	Get_RenderID() { return m_eRender; }
 
-	char GetDirKey() { return m_szLRCheck; } // Check
+	char GetDirKey() { return m_szMoveDir; } // Check
 
 	void SetAngle(float _fAngle) { m_fAngle = _fAngle; }
 
@@ -71,6 +71,6 @@ protected:
 	CObj* m_pTarget;
 	CObj* m_pChange;
 
-	char m_szLRCheck;
+	char m_szMoveDir;
 };
 

@@ -130,7 +130,6 @@ void CPlayer_Spark::Initialize()
 	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
-	m_fPower = 10.f;
 
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Spark/Player_Spark_Left.bmp", L"Player_Spark_LEFT");
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Player/Player_Spark/Player_Spark_Right.bmp", L"Player_Spark_RIGHT");

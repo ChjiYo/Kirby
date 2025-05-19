@@ -29,6 +29,8 @@ public:
 private:
 	bool m_szInhalKeyCheck;
 	bool m_bWater;
+	bool m_bInhalCheck;
+
 
 };
 

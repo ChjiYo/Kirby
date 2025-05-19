@@ -26,7 +26,7 @@ public:
 	void SetLeftFrameKey(const TCHAR* _eKey) { m_eLeftKey = _eKey; }
 	void SetRightFrameKey(const TCHAR* _eKey) { m_eRightKey = _eKey; }
 
-	char GetDir() { return m_szLRCheck; }
+	char GetDir() { return m_szMoveDir; }
 	void SetStateHit() { m_eCurState = HIT; }
 
 	void SetMapCheck() { m_bMapCheck = false; }
@@ -82,24 +82,18 @@ protected:
 	STATE			m_eCurState;
 	STATE			m_ePreState;
 
-	DWORD m_dwBulletTimer;
-
 	float m_fWidth;
 	float m_fHeight;
 	float m_fDiagonal;
 	float m_fRadian;
 
-	bool m_bInhalCheck;
-	float m_fInhalTimer;
-	
 	MONID m_eMonsterID;
 
 	const TCHAR* m_eLeftKey;
 	const TCHAR* m_eRightKey;
 
-	char m_szLRCheck; // 조심
+	char m_szMoveDir; // 조심
 
-	bool m_bTackle;
 	DWORD m_fTackleTimer;
 
 	int m_iHp;

@@ -37,19 +37,13 @@ CPlayer::CPlayer()
 
 	//Jump
 	m_bJump = false;
-	m_fPower = 0.f;
+	m_fPower = 10.f;
 	m_fTime = 0.f;
 	m_fSpeed = 5.0f;
 
-	m_dwBulletTimer = (DWORD)(GetTickCount64() / 1000);
+	m_szMoveDir = 'R';
 
-	m_bInhalCheck = false;
-	m_fInhalTimer = 0.f;
-
-	m_szLRCheck = 'R';
-
-	m_bTackle = false;
-
+	//Tackle (Fix)
 	m_fTackleTimer = (DWORD)GetTickCount64();
 
 	m_iMapCount = 0;
@@ -138,27 +132,8 @@ void CPlayer::Jump()
 
 			if (iJumpCount > 1)
 			{
-				
 				m_eCurState = FLY;
 
-				 if (CKeyMgr::GetInst().Key_Down('C') /*&& (m_dwBulletTimer + 0.5f) < (DWORD)(GetTickCount64() / 1000.f)*/)
-				{
-					 //CSoundMgr::GetInst().PlaySoundW(L"12_AirGun.wav", SOUND_EFFECT, m_fVolume);
-					m_eCurState = LAND_AIR;
-					
-					if (m_szLRCheck == 'R')
-					{
-						CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CAirGun>::Create(m_tInfo.fX, m_tInfo.fY, 0.f));
-					}
-					else if (m_szLRCheck == 'L')
-					{
-						CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CAirGun>::Create(m_tInfo.fX, m_tInfo.fY, 180.f));
-					}
-					m_dwBulletTimer = (DWORD)(GetTickCount64() / 1000);
-
-					iJumpCount = 0;
-		
-				}
 			}
 			if (bLineCol && fY < m_tInfo.fY)
 			{
@@ -184,10 +159,10 @@ void CPlayer::Jump()
 	
 	if ( fX <= m_tInfo.fX && fY < m_tInfo.fY)
 	{
-		if (m_szLRCheck == 'R')
+		if (m_szMoveDir == 'R')
  			m_tInfo.fX -= m_fSpeed;
 
-		if (m_szLRCheck == 'L')
+		if (m_szMoveDir == 'L')
 			m_tInfo.fX += m_fSpeed;
 	}
 
@@ -276,10 +251,10 @@ void CPlayer::Hit()
 		m_eCurState = TEST;
 		m_bHitCheck = true;
 
-		if(m_szLRCheck == 'R')
+		if(m_szMoveDir == 'R')
 			m_tInfo.fX -= m_fSpeed;
 
-		if (m_szLRCheck == 'L')
+		if (m_szMoveDir == 'L')
 			m_tInfo.fX += m_fSpeed;
 
 		if (m_dwHitTimer + 800 < (DWORD)GetTickCount64() && m_bHitCheck)
@@ -303,10 +278,10 @@ void CPlayer::Hit()
 		m_eCurState = TEST;
 		m_bHitCheck = true;
 
-		if (m_szLRCheck == 'R')
+		if (m_szMoveDir == 'R')
 			m_tInfo.fX -= m_fSpeed;
 
-		if (m_szLRCheck == 'L')
+		if (m_szMoveDir == 'L')
 			m_tInfo.fX += m_fSpeed;
 
 		if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64() && m_bHitCheck)
@@ -336,7 +311,7 @@ void CPlayer::Hit()
 void CPlayer::BindAxis_LEFT()
 {
 	m_eCurState = WALK;
-	m_szLRCheck = 'L';
+	m_szMoveDir = 'L';
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -348,7 +323,7 @@ void CPlayer::BindAxis_LEFT()
 void CPlayer::BindAxis_RIGHT()
 {
 	m_eCurState = WALK;
-	m_szLRCheck = 'R';
+	m_szMoveDir = 'R';
 
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
@@ -366,12 +341,12 @@ void CPlayer::BindAxis_DOWN()
 	{
 
 		m_eCurState = TACKLE;
-		if (m_szLRCheck == 'R')
+		if (m_szMoveDir == 'R')
 		{
 			m_tInfo.fX += m_fSpeed;
 		}
 
-		else if (m_szLRCheck == 'L')
+		else if (m_szMoveDir == 'L')
 		{
 			m_tInfo.fX -= m_fSpeed;
 		}
@@ -444,7 +419,24 @@ void CPlayer::BindAction_ESCAPE()
 
 void CPlayer::BindAction_ATTACK()
 {
-	m_eCurState = ATTACK;
+	//m_eCurState = ATTACK;
+
+	if (m_bJump && iJumpCount > 1)
+	{
+		//CSoundMgr::GetInst().PlaySoundW(L"12_AirGun.wav", SOUND_EFFECT, m_fVolume);
+		m_eCurState = LAND_AIR;
+
+		if (m_szMoveDir == 'R')
+		{
+			CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CAirGun>::Create(m_tInfo.fX, m_tInfo.fY, 0.f));
+		}
+		else if (m_szMoveDir == 'L')
+		{
+			CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CAirGun>::Create(m_tInfo.fX, m_tInfo.fY, 180.f));
+		}
+		iJumpCount = 0;
+	}
+	
 }
 
 void CPlayer::BindAxis(int _iKey)
@@ -482,7 +474,7 @@ void CPlayer::BindAction(int _iKey)
 		BindAction_ESCAPE();
 		break;
 
-	case 'F':
+	case 'C':
 		BindAction_ATTACK();
 		break;
 
