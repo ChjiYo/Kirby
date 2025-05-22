@@ -19,6 +19,7 @@ protected:
 	void OffSet();
 	void Inhal();
 	void Hit();
+	void Tackle();
 
 public:
 	void SetID(MONID _MonID) { m_eMonsterID = _MonID; }
@@ -57,6 +58,7 @@ private:
 
 //Action
 	void BindAction_JUMP();
+	void BindAction_TACKLE();
 	void BindAction_ESCAPE();
 	void BindAction_ATTACK();
 

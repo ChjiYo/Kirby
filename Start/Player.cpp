@@ -308,6 +308,11 @@ void CPlayer::Hit()
 	}
 }
 
+void CPlayer::Tackle()
+{
+
+}
+
 void CPlayer::BindAxis_LEFT()
 {
 	m_eCurState = WALK;
@@ -336,10 +341,9 @@ void CPlayer::BindAxis_RIGHT()
 void CPlayer::BindAxis_DOWN()
 {
 	m_eCurState = SIT;
-
-	if ((CKeyMgr::GetInst().Key_Pressing('X')) && m_fTackleTimer + 300 < (DWORD)GetTickCount64())
+	int iDownKey = CKeyMgr::GetInst().GetDownKey();
+	if (iDownKey == 'X')
 	{
-
 		m_eCurState = TACKLE;
 		if (m_szMoveDir == 'R')
 		{
@@ -349,7 +353,9 @@ void CPlayer::BindAxis_DOWN()
 		else if (m_szMoveDir == 'L')
 		{
 			m_tInfo.fX -= m_fSpeed;
+			
 		}
+
 		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
 		{
 			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
@@ -382,6 +388,11 @@ void CPlayer::BindAction_JUMP()
 	//	{
 	//		//CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
 	//	}
+}
+
+void CPlayer::BindAction_TACKLE()
+{
+
 }
 
 void CPlayer::BindAction_ESCAPE()
@@ -478,7 +489,6 @@ void CPlayer::BindAction(int _iKey)
 		BindAction_ATTACK();
 		break;
 
-	
 	default:
 		break;
 	}

@@ -3,6 +3,8 @@
 CKeyMgr::CKeyMgr()
 {
 	ZeroMemory(m_bKeyState, sizeof(m_bKeyState));
+	
+	
 }
 
 CKeyMgr::~CKeyMgr()
