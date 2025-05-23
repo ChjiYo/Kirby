@@ -352,6 +352,7 @@ void CPlayer_Origin::LateUpdate()
 	OffSet();
 	WaterMove();
 	MotionChage();
+	Tackle();
 
 	__super::MoveFrame();
 }

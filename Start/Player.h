@@ -30,9 +30,6 @@ public:
 	char GetDir() { return m_szMoveDir; }
 	void SetStateHit() { m_eCurState = HIT; }
 
-	void SetMapCheck() { m_bMapCheck = false; }
-	bool GetMapCheck() { return m_bMapCheck; }
-
 	virtual void SetHp(int _iHp) { m_iHp += _iHp; }
 	virtual int GetHp() {return m_iHp; }
 
@@ -45,7 +42,7 @@ public:
 	bool GetInhal() { return m_bInputKeyCheck; }
 
 	virtual PLAYERID GetPlayerID() { return m_ePlayerID; }
-	//void SetDamage();
+	
 
 private:
 //Å° ÇÒ´ç
@@ -64,6 +61,7 @@ private:
 
 	void BindAxis(int _iKey);
 	void BindAction(int _iKey);
+	void MultyBindAction(int _iFirstKey, int _iSecondKey);
 
 public:
 	virtual void MotionChange();
@@ -80,6 +78,8 @@ protected:
 
 	bool m_bJump;
 	bool m_bAirAttack;
+
+	bool m_bTackle;
 
 	STATE			m_eCurState;
 	STATE			m_ePreState;
@@ -100,8 +100,6 @@ protected:
 
 	int m_iHp;
 	
-	int m_iMapCount;
-
 	bool m_bFlyCheck;
 	float m_bFlyTimer;
 	DWORD m_dwFlyTimer;
@@ -110,8 +108,6 @@ protected:
 
 	int m_iInhalCount;
 	DWORD m_dwInhalTime;
-
-	bool m_bMapCheck;
 
 	DWORD m_dwHitTimer;
 	DWORD m_dwEpicHitTimer;

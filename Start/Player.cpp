@@ -43,10 +43,10 @@ CPlayer::CPlayer()
 
 	m_szMoveDir = 'R';
 
-	//Tackle (Fix)
+	//Tackle
 	m_fTackleTimer = (DWORD)GetTickCount64();
+	m_bTackle = false;
 
-	m_iMapCount = 0;
 
 	m_bFlyCheck = false;
 
@@ -55,8 +55,6 @@ CPlayer::CPlayer()
 
 	iJumpCount = 0;
 	m_iInhalCount = 0;
-
-	m_bMapCheck = false;
 
 	m_dwHitTimer = (DWORD)GetTickCount64();
 	m_dwEpicHitTimer = (DWORD)GetTickCount64();
@@ -91,10 +89,12 @@ CPlayer::~CPlayer()
 void CPlayer::KeyInput()
 {
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
-	int iDownKey = CKeyMgr::GetInst().GetDownKey();
+	int iiDownKey = CKeyMgr::GetInst().GetDownKey();
 
 	BindAxis(iPressingKey);
-	BindAction(iDownKey);
+	BindAction(iiDownKey);
+	MultyBindAction(iPressingKey, iiDownKey );
+
 
 //기타 키들 (추후에 업데이트 필요)
 	//else if (CKeyMgr::GetInst().Key_Pressing('Z'))
@@ -311,6 +311,36 @@ void CPlayer::Hit()
 void CPlayer::Tackle()
 {
 
+	if (m_bTackle)
+	{
+		m_eCurState = TACKLE;
+		if (m_fTackleTimer + 350 < (DWORD)GetTickCount64())
+		{
+			m_bTackle = false;
+			m_fTackleTimer = (DWORD)GetTickCount64();
+		}
+
+		if (m_szMoveDir == 'R')
+		{
+			m_tInfo.fX += m_fSpeed;
+		}
+
+		else if (m_szMoveDir == 'L')
+		{
+			m_tInfo.fX -= m_fSpeed;
+
+		}
+
+		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
+		{
+			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
+		}
+	}
+	else
+	{
+		m_fTackleTimer = (DWORD)GetTickCount64();
+		m_eCurState = IDLE;
+	}
 }
 
 void CPlayer::BindAxis_LEFT()
@@ -340,29 +370,8 @@ void CPlayer::BindAxis_RIGHT()
 
 void CPlayer::BindAxis_DOWN()
 {
-	m_eCurState = SIT;
-	int iDownKey = CKeyMgr::GetInst().GetDownKey();
-	if (iDownKey == 'X')
-	{
-		m_eCurState = TACKLE;
-		if (m_szMoveDir == 'R')
-		{
-			m_tInfo.fX += m_fSpeed;
-		}
-
-		else if (m_szMoveDir == 'L')
-		{
-			m_tInfo.fX -= m_fSpeed;
-			
-		}
-
-		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
-		{
-			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
-		}
-
-	}
-
+	if(m_eCurState != TACKLE)
+		m_eCurState = SIT;
 }
 
 void CPlayer::BindAxis_MONE()
@@ -393,37 +402,14 @@ void CPlayer::BindAction_JUMP()
 void CPlayer::BindAction_TACKLE()
 {
 
+	m_bTackle = true;
 }
 
 void CPlayer::BindAction_ESCAPE()
 {
 	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetDoorList(), CObjMgr::GetInst().GetPlayerList()))
 	{
-		m_tInfo.fX = 100;
-		m_tInfo.fY = 200;
-
-		m_bMapCheck = true;
-
-		switch (CStageMgr::GetInst().GetCurStage())
-		{
-		case STAGE_A1:
-			CStageMgr::GetInst().StageChage(STAGE_A3);
-			break;
-
-			/*case STAGE_A2:
-				CStageMgr::GetInst().StageChage(STAGE_A3);
-				break;*/
-
-		case STAGE_A3:
-			CStageMgr::GetInst().StageChage(STAGE_A4);
-			break;
-
-		case 3:
-			break;
-
-		}
-		m_iMapCount++;
-		m_eCurState = PORTAL;
+		
 	}
 }
 
@@ -491,6 +477,14 @@ void CPlayer::BindAction(int _iKey)
 
 	default:
 		break;
+	}
+}
+
+void CPlayer::MultyBindAction(int _iFirstKey, int _iSecondKey)
+{
+	if (_iFirstKey == VK_DOWN && _iSecondKey == 'X')
+	{
+		BindAction_TACKLE();
 	}
 }
 

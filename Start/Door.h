@@ -15,5 +15,8 @@ public:
 	virtual void LateUpdate();
 	virtual void Render(HDC _hDC);
 	virtual void Release();
+
+private: 
+	void MoveToNextState();
 };
 
