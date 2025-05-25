@@ -121,5 +121,5 @@ void CStageA1::Render(HDC _hDC)
 
 void CStageA1::Release()
 {	
-	
+	int iDebug(0);
 }

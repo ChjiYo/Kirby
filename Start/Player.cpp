@@ -407,10 +407,32 @@ void CPlayer::BindAction_TACKLE()
 
 void CPlayer::BindAction_ESCAPE()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetDoorList(), CObjMgr::GetInst().GetPlayerList()))
-	{
-		
-	}
+	//int iiDownKey = CKeyMgr::GetInst().GetPressingKey();
+	//iiDownKey == VK_DOWN && 
+	//if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
+	//{
+	//	m_tInfo.fX = 100;
+	//	m_tInfo.fY = 200;
+	//
+	//	switch (CStageMgr::GetInst().GetCurStage())
+	//	{
+	//	case STAGE_A1:
+	//		CStageMgr::GetInst().StageChage(STAGE_A2);
+	//		break;
+	//
+	//	case STAGE_A2:
+	//		CStageMgr::GetInst().StageChage(STAGE_A3);
+	//		break;
+	//
+	//	case STAGE_A3:
+	//		CStageMgr::GetInst().StageChage(STAGE_A4);
+	//		break;
+	//
+	//	default:
+	//		break;
+	//	}
+	//	//m_eCurState = PORTAL;
+	//}
 }
 
 

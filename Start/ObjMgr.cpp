@@ -25,8 +25,8 @@ int CObjMgr::Update()
 		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end(); )
 		{
 			int iResult = (*iter)->Update();
-
-			if (iResult == OBJ_DISTORY )
+			
+			if (iResult == OBJ_DISTORY)			
 			{
 				Safe_Delete<CObj*>(*iter);
 				iter = m_ObjList[i].erase(iter);
@@ -48,7 +48,6 @@ void CObjMgr::LateUpdate()
 		for (auto& iter : m_ObjList[i])
 		{
 			iter->LateUpdate();
-
 
 			if (m_ObjList[i].empty())
 				break;

@@ -64,7 +64,6 @@ void CStageMgr::StageChage(STAGEID eID)
 		m_pStage->Initialize();
 		
 		m_ePreStage = m_eCurStage;
-		int a = 10;
 	}
 }
 
