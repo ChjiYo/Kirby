@@ -26,6 +26,8 @@ public:
 	 CObj* GetItemListInfo() { return m_ObjList[OBJ_ITEMLIST].back(); }
 	 CObj* GetPetInfo() { return m_ObjList[OBJ_PET].back(); }
 
+	 list<CObj*> GetObjectList(OBJID eObjID) {return m_ObjList[eObjID]; }
+
 	 list<CObj*>  GetPlayerList() { return m_ObjList[OBJ_PLAYER]; }
 	 list<CObj*>  GetDoorList() { return m_ObjList[OBJ_DOOR]; }
 	 list<CObj*>  GetMonsterList() { return m_ObjList[OBJ_MONSTER]; }

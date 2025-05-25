@@ -46,8 +46,7 @@ void CDoor::MoveToNextState()
 {
 	int iiDownKey = CKeyMgr::GetInst().GetPressingKey();
 
-
-	if (iiDownKey == VK_DOWN && CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetDoorList(), CObjMgr::GetInst().GetPlayerList()))
+	if (iiDownKey == VK_DOWN && CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
 	{
 		m_tInfo.fX = 100;
 		m_tInfo.fY = 200;
@@ -57,7 +56,6 @@ void CDoor::MoveToNextState()
 		{
 		case STAGE_A1:
 			CStageMgr::GetInst().StageChage(STAGE_A2);
-			m_bDead = true;
 			break;
 
 		case STAGE_A2:

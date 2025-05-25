@@ -8,6 +8,7 @@
 #include "Monster_Sparky.h"
 
 #include "Shop_Item.h"
+#include "ObjMgr.h"
 
 bool CCollisionMgr::Collision_Rect(list<CObj*> _Dst, list<CObj*> _Src)
 {
@@ -97,6 +98,26 @@ int CCollisionMgr::SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMons
 	}
 	return 0;
 }
+
+bool CCollisionMgr::ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID)
+{
+	list<CObj*> pFirstObjList = CObjMgr::GetInst().GetObjectList(_eFirstID);
+	list<CObj*> pSecondObjList = CObjMgr::GetInst().GetObjectList(_eSecondID);
+
+	for (auto& Player : pFirstObjList)
+	{
+		for (auto& Monster : pSecondObjList)
+		{
+			if (Check_Sphere(Player, Monster))
+			{
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
 
 bool CCollisionMgr::ObjectCollisionCheck(list<CObj*> _pPlayer, list<CObj*> _pMonster)
 {

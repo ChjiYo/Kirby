@@ -23,6 +23,8 @@ public:
 	 bool	Collision_Sphere(list<CObj*> _Dst, list<CObj*> _Src);
 	 int SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster);
 
+	 bool ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID);
+
 	 bool ObjectCollisionCheck(list<CObj*> _pPlayer, list<CObj*> _pMonster);
 	 int InvenCollisionCheck(list<CObj*> _pMouse, list<CObj*> _pItem);
 

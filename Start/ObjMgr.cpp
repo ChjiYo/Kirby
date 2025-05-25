@@ -49,6 +49,7 @@ void CObjMgr::LateUpdate()
 		{
 			iter->LateUpdate();
 
+
 			if (m_ObjList[i].empty())
 				break;
 
