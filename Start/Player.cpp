@@ -47,14 +47,9 @@ CPlayer::CPlayer()
 	m_fTackleTimer = (DWORD)GetTickCount64();
 	m_bTackle = false;
 
-
-	m_bFlyCheck = false;
-
-	m_dwFlyTimer = (DWORD)GetTickCount64() / 1000;
 	m_dwInhalTime = (DWORD)GetTickCount64();
 
 	iJumpCount = 0;
-	m_iInhalCount = 0;
 
 	m_dwHitTimer = (DWORD)GetTickCount64();
 	m_dwEpicHitTimer = (DWORD)GetTickCount64();
@@ -67,7 +62,6 @@ CPlayer::CPlayer()
 
 	m_bHitCheck = false;
 
-	m_dwHitIdleTimer = (DWORD)GetTickCount64();
 
 	m_bInputKeyCheck = false;
 
@@ -76,9 +70,6 @@ CPlayer::CPlayer()
 	m_iMoney = 0;
 
 	m_ePlayerID = PLAYER_CLASIC;
-
-	m_dwLandTimer = (DWORD)GetTickCount64();
-
 }
 
 CPlayer::~CPlayer()
@@ -183,7 +174,6 @@ void CPlayer::Land()
 		m_fTime = 0.f;
 		m_tInfo.fY = fY -25;
 
-		m_dwLandTimer = (DWORD)GetTickCount64();
 	}
 }
 
@@ -378,7 +368,6 @@ void CPlayer::BindAxis_MONE()
 {	
 	m_bInputKeyCheck = false;
 	m_eCurState = IDLE;
-	m_iInhalCount = 0;
 }
 
 
@@ -407,32 +396,30 @@ void CPlayer::BindAction_TACKLE()
 
 void CPlayer::BindAction_ESCAPE()
 {
-	//int iiDownKey = CKeyMgr::GetInst().GetPressingKey();
-	//iiDownKey == VK_DOWN && 
-	//if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
-	//{
-	//	m_tInfo.fX = 100;
-	//	m_tInfo.fY = 200;
-	//
-	//	switch (CStageMgr::GetInst().GetCurStage())
-	//	{
-	//	case STAGE_A1:
-	//		CStageMgr::GetInst().StageChage(STAGE_A2);
-	//		break;
-	//
-	//	case STAGE_A2:
-	//		CStageMgr::GetInst().StageChage(STAGE_A3);
-	//		break;
-	//
-	//	case STAGE_A3:
-	//		CStageMgr::GetInst().StageChage(STAGE_A4);
-	//		break;
-	//
-	//	default:
-	//		break;
-	//	}
-	//	//m_eCurState = PORTAL;
-	//}
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
+	{
+		m_tInfo.fX = 100;
+		m_tInfo.fY = 200;
+	
+		switch (CStageMgr::GetInst().GetCurStage())
+		{
+		case STAGE_A1:
+			CStageMgr::GetInst().StageChage(STAGE_A2);
+			break;
+	
+		case STAGE_A2:
+			CStageMgr::GetInst().StageChage(STAGE_A3);
+			break;
+	
+		case STAGE_A3:
+			CStageMgr::GetInst().StageChage(STAGE_A4);
+			break;
+	
+		default:
+			break;
+		}
+		//m_eCurState = PORTAL;
+	}
 }
 
 

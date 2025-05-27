@@ -100,13 +100,10 @@ protected:
 
 	int m_iHp;
 	
-	bool m_bFlyCheck;
 	float m_bFlyTimer;
-	DWORD m_dwFlyTimer;
 
 	int iJumpCount;
 
-	int m_iInhalCount;
 	DWORD m_dwInhalTime;
 
 	DWORD m_dwHitTimer;
@@ -126,8 +123,6 @@ protected:
 	int m_iMoney;
 
 	PLAYERID m_ePlayerID;
-
-	DWORD m_dwLandTimer;
 
 	int m_iNowMoney;
 	
