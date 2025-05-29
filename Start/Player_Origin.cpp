@@ -14,7 +14,6 @@
 
 CPlayer_Origin::CPlayer_Origin()
 {
-	m_iInhalCount = 0;
 	m_szInhalKeyCheck = false;
 	m_bWater = false;
 }
@@ -304,7 +303,7 @@ void CPlayer_Origin::MotionChage()
 
 void CPlayer_Origin::Initialize()
 {
-	m_tInfo = { SCALE_X* 0.5f + 5000,SCALE_Y * 0.5f,32.f,35.f };
+	m_tInfo = { SCALE_X* 0.5f ,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
 
@@ -313,9 +312,6 @@ void CPlayer_Origin::Initialize()
 
 	m_pFrameKey = L"Player_RIGHT";
 
-	SetLeftFrameKey(L"Player_LEFT");
-	SetRightFrameKey(L"Player_RIGHT");
-
 	m_tFrame.iFrameStart = 0;
 	m_tFrame.iFrameEnd = 1;
 	m_tFrame.iMotion = 0;
@@ -323,7 +319,6 @@ void CPlayer_Origin::Initialize()
 	m_tFrame.dwTime = (DWORD)GetTickCount64();
 
 	m_eRender = RENDER_GAMEOBJECT;
-	m_bFlyTimer++;
 
 	m_ePlayerID = PLAYER_CLASIC;
 

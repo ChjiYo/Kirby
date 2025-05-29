@@ -24,9 +24,6 @@ protected:
 public:
 	void SetID(MONID _MonID) { m_eMonsterID = _MonID; }
 
-	void SetLeftFrameKey(const TCHAR* _eKey) { m_eLeftKey = _eKey; }
-	void SetRightFrameKey(const TCHAR* _eKey) { m_eRightKey = _eKey; }
-
 	char GetDir() { return m_szMoveDir; }
 	void SetStateHit() { m_eCurState = HIT; }
 
@@ -77,22 +74,13 @@ protected:
 	float m_fTime;
 
 	bool m_bJump;
-	bool m_bAirAttack;
 
 	bool m_bTackle;
 
 	STATE			m_eCurState;
 	STATE			m_ePreState;
 
-	float m_fWidth;
-	float m_fHeight;
-	float m_fDiagonal;
-	float m_fRadian;
-
 	MONID m_eMonsterID;
-
-	const TCHAR* m_eLeftKey;
-	const TCHAR* m_eRightKey;
 
 	char m_szMoveDir; // Á¶½É
 
@@ -100,13 +88,8 @@ protected:
 
 	int m_iHp;
 	
-	bool m_bFlyCheck;
-	float m_bFlyTimer;
-	DWORD m_dwFlyTimer;
-
 	int iJumpCount;
 
-	int m_iInhalCount;
 	DWORD m_dwInhalTime;
 
 	DWORD m_dwHitTimer;
@@ -117,18 +100,13 @@ protected:
 
 	bool m_bHitCheck;
 
-	DWORD m_dwHitIdleTimer;
-
 	bool m_bInputKeyCheck;
 
 	DWORD m_bWalkTimer;
-	
-	int m_iMoney;
-
 	PLAYERID m_ePlayerID;
 
-	DWORD m_dwLandTimer;
-
+	//Money
+	int m_iMoney;
 	int m_iNowMoney;
 	
 };

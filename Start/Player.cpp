@@ -32,6 +32,7 @@
 
 CPlayer::CPlayer()
 {
+	//AnimState
 	ZeroMemory(&m_eCurState, sizeof(m_eCurState));
 	ZeroMemory(&m_ePreState, sizeof(m_ePreState));
 
@@ -40,45 +41,42 @@ CPlayer::CPlayer()
 	m_fPower = 10.f;
 	m_fTime = 0.f;
 	m_fSpeed = 5.0f;
+	iJumpCount = 0;
 
+	//Dir
 	m_szMoveDir = 'R';
 
 	//Tackle
-	m_fTackleTimer = (DWORD)GetTickCount64();
 	m_bTackle = false;
+	m_fTackleTimer = (DWORD)GetTickCount64();
 
-
-	m_bFlyCheck = false;
-
-	m_dwFlyTimer = (DWORD)GetTickCount64() / 1000;
+	//Inhal
 	m_dwInhalTime = (DWORD)GetTickCount64();
 
-	iJumpCount = 0;
-	m_iInhalCount = 0;
-
+	//Hit
+	m_bHitCheck = false;
 	m_dwHitTimer = (DWORD)GetTickCount64();
 	m_dwEpicHitTimer = (DWORD)GetTickCount64();
 
+	//Hp
 	m_iHp = 20;
-
 	m_iNowHp = 0;
 
+	//Sound
 	m_fVolume = 1.f;
-
-	m_bHitCheck = false;
-
-	m_dwHitIdleTimer = (DWORD)GetTickCount64();
-
-	m_bInputKeyCheck = false;
-
 	m_bWalkTimer = (DWORD)GetTickCount64();
 
+	//Input
+	m_bInputKeyCheck = false;
+
+
+	//Money
 	m_iMoney = 0;
+	m_iNowMoney = m_iMoney;
 
+	//ID
 	m_ePlayerID = PLAYER_CLASIC;
-
-	m_dwLandTimer = (DWORD)GetTickCount64();
-
+	m_eMonsterID = MON_NONE;
 }
 
 CPlayer::~CPlayer()
@@ -94,7 +92,6 @@ void CPlayer::KeyInput()
 	BindAxis(iPressingKey);
 	BindAction(iiDownKey);
 	MultyBindAction(iPressingKey, iiDownKey );
-
 
 //기타 키들 (추후에 업데이트 필요)
 	//else if (CKeyMgr::GetInst().Key_Pressing('Z'))
@@ -119,43 +116,40 @@ void CPlayer::KeyInput()
 void CPlayer::Jump()
 {
 	float fX = 0.f;
-	float  fY = 0.f;
+	float fY = 0.f;
 
 	bool bLineCol = CLineMgr::GetInst().Collision_Line(m_tInfo.fX, m_tInfo.fY, &fX, &fY);
 
-		if (m_bJump)
+	bool isStage = CStageMgr::GetInst().GetCurStage() == STAGE_A3;
+	bool isWaterRange = (m_tInfo.fX < 2500.f && m_tInfo.fX > 1870.f) && m_tInfo.fY > 340.f;
+	bool isWater = isStage && isWaterRange;
+
+	if (m_bJump)
+	{
+		m_eCurState = JUMP;
+
+		m_tInfo.fY -= m_fPower - 9.8f * m_fTime * 0.5f;
+		m_fTime += 0.1f;
+
+		if (iJumpCount > 1)
 		{
-			m_eCurState = JUMP;
+			m_eCurState = FLY;
 
-			m_tInfo.fY -= m_fPower - 9.8f * m_fTime * 0.5f;
-			m_fTime += 0.1f;
-
-			if (iJumpCount > 1)
-			{
-				m_eCurState = FLY;
-
-			}
-			if (bLineCol && fY < m_tInfo.fY)
-			{
-				m_bJump = false;
-				m_fTime = 0.f;
-				m_tInfo.fY = fY;
-				iJumpCount = 0;
-				m_eCurState = IDLE;
-			
-			}
-			
 		}
-		else if (bLineCol)
+		if (bLineCol && fY < m_tInfo.fY)
 		{
-		//	m_eCurState = LAND;
-
-			if ( !(CStageMgr::GetInst().GetCurStage() == STAGE_A3 && (m_tInfo.fX < 2500.f && m_tInfo.fX > 1870.f) && m_tInfo.fY > 340.f) )
-			{
-				Land();
-			}
-			//m_tInfo.fY = fY;
+			m_bJump = false;
+			m_fTime = 0.f;
+			iJumpCount = 0;
+			m_tInfo.fY = fY;
+			m_eCurState = IDLE;
 		}
+		
+	}
+	else if (!isWater && bLineCol)
+	{
+		Land();
+	}
 	
 	if ( fX <= m_tInfo.fX && fY < m_tInfo.fY)
 	{
@@ -183,7 +177,6 @@ void CPlayer::Land()
 		m_fTime = 0.f;
 		m_tInfo.fY = fY -25;
 
-		m_dwLandTimer = (DWORD)GetTickCount64();
 	}
 }
 
@@ -378,7 +371,6 @@ void CPlayer::BindAxis_MONE()
 {	
 	m_bInputKeyCheck = false;
 	m_eCurState = IDLE;
-	m_iInhalCount = 0;
 }
 
 
@@ -409,30 +401,30 @@ void CPlayer::BindAction_ESCAPE()
 {
 	//int iiDownKey = CKeyMgr::GetInst().GetPressingKey();
 	//iiDownKey == VK_DOWN && 
-	//if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
-	//{
-	//	m_tInfo.fX = 100;
-	//	m_tInfo.fY = 200;
-	//
-	//	switch (CStageMgr::GetInst().GetCurStage())
-	//	{
-	//	case STAGE_A1:
-	//		CStageMgr::GetInst().StageChage(STAGE_A2);
-	//		break;
-	//
-	//	case STAGE_A2:
-	//		CStageMgr::GetInst().StageChage(STAGE_A3);
-	//		break;
-	//
-	//	case STAGE_A3:
-	//		CStageMgr::GetInst().StageChage(STAGE_A4);
-	//		break;
-	//
-	//	default:
-	//		break;
-	//	}
-	//	//m_eCurState = PORTAL;
-	//}
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_DOOR, OBJ_PLAYER))
+	{
+		m_tInfo.fX = 100;
+		m_tInfo.fY = 200;
+
+		switch (CStageMgr::GetInst().GetCurStage())
+		{
+		case STAGE_A1:
+			CStageMgr::GetInst().StageChage(STAGE_A3);
+			break;
+
+		case STAGE_A2:
+			CStageMgr::GetInst().StageChage(STAGE_A3);
+			break;
+
+		case STAGE_A3:
+			CStageMgr::GetInst().StageChage(STAGE_A4);
+			break;
+
+		default:
+			break;
+		}
+		//m_eCurState = PORTAL;
+	}
 }
 
 
