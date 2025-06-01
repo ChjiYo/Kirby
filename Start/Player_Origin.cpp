@@ -63,6 +63,7 @@ void CPlayer_Origin::LRKey()
 
 void CPlayer_Origin::WaterMove()
 {
+
 	if (CStageMgr::GetInst().GetCurStage() == STAGE_A3 && (m_tInfo.fX < 2500.f && m_tInfo.fX > 1800.f) && m_tInfo.fY > 450.f)
 	{
 		m_tInfo.fY -= m_fSpeed;
@@ -101,10 +102,6 @@ void CPlayer_Origin::WaterMove()
 	{
 		m_bWater = false;
 	}
-}
-
-void CPlayer_Origin::Water()
-{
 }
 
 void CPlayer_Origin::MotionChage()

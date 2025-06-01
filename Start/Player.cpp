@@ -52,6 +52,7 @@ CPlayer::CPlayer()
 
 	//Inhal
 	m_dwInhalTime = (DWORD)GetTickCount64();
+	m_bInhalCheck = false;
 
 	//Hit
 	m_bHitCheck = false;
@@ -86,30 +87,28 @@ CPlayer::~CPlayer()
 void CPlayer::KeyInput()
 {
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
-	int iiDownKey = CKeyMgr::GetInst().GetDownKey();
+	int iDownKey = CKeyMgr::GetInst().GetDownKey();
 
-	BindAxis(iPressingKey);
-	BindAction(iiDownKey);
-	MultyBindAction(iPressingKey, iiDownKey );
+	BindPressing(iPressingKey);
+	BindDown(iDownKey);
+
+	MultyBindAction(iPressingKey, iDownKey );
 
 //기타 키들 (추후에 업데이트 필요)
-	//else if (CKeyMgr::GetInst().Key_Pressing('Z'))
-	//{
-	//	m_iInhalCount++;
-	//	Inhal();
-	//	m_eCurState = INHAL;
-	//	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
-	//}
-	//else if (CKeyMgr::GetInst().Key_Down('L'))
-	//{
-	//	CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX , 0));
-	//	dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
-	//	//CObjMgr::GetInst().Add_Create(OBJ_TEMP, CFactory<CTemp>::Create());
-	//}
-	//else if (CKeyMgr::GetInst().Key_Down('J'))
-	//{
-	//	dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
-	//}
+	//Inhal
+
+	if (CKeyMgr::GetInst().Key_Down('L'))
+	{
+		//Using Item
+		CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX , 0));
+		dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
+		//CObjMgr::GetInst().Add_Create(OBJ_TEMP, CFactory<CTemp>::Create());
+	}
+	else if (CKeyMgr::GetInst().Key_Down('J'))
+	{
+		//Hp Down
+		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
+	}
 }
 
 void CPlayer::Jump()
@@ -203,37 +202,6 @@ void CPlayer::OffSet()
 
 	if (iOffSetMaxY < m_tInfo.fY + iScrollY)
 		CScrollMgr::GetInst().SetScrollY(-m_fSpeed);
-}
-
-void CPlayer::Inhal()
-{
-	m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
-
-	if (m_pTarget)
-	{
-		m_bInputKeyCheck = true;
-	}
-	m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
-
-	//if (m_pTarget)
-	//{
-	//	m_bInputKeyCheck = true;
-	//	m_fWidth = (m_pTarget->GetInfo().fX - m_tInfo.fX);
-	//	m_fHeight = (m_pTarget->GetInfo().fY - m_tInfo.fY);
-
-	//	m_fDiagonal = (float)(sqrt(m_fWidth * m_fWidth + m_fHeight * m_fHeight));
-
-	//	m_fRadian = (float)acos(m_fWidth / m_fDiagonal);
-
-	//	if (m_pTarget->GetInfo().fY > m_tInfo.fY)
-	//		m_fRadian = (2 * PI) - m_fRadian;
-
-	//	m_fAngle = m_fRadian * (180.f / PI);
-
-	//	CObjMgr::GetInst().GetMonsterInfo()->SetAngle(m_fAngle);
-	//	//m_tInfo.fX += m_fSpeed * cos(m_fAngle * (PI / 180.f));
-	//	//m_tInfo.fY -= m_fSpeed * sin(m_fAngle * (PI / 180.f));
-	//}
 }
 
 void CPlayer::Hit()
@@ -454,7 +422,18 @@ void CPlayer::BindAction_ATTACK()
 	
 }
 
-void CPlayer::BindAxis(int _iKey)
+void CPlayer::BindAction_INHAL()
+{
+	m_eCurState = INHAL;
+	m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
+
+	if (m_pTarget)
+		m_bInputKeyCheck = true;
+	
+	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
+}
+
+void CPlayer::BindPressing(int _iKey)
 {
 
 	switch (_iKey)
@@ -471,13 +450,17 @@ void CPlayer::BindAxis(int _iKey)
 		BindAxis_DOWN();
 		break;
 
+	case 'Z':
+		BindAction_INHAL();
+		break;
+
 	default:
 		BindAxis_MONE();
 		break;
 	}
 }
 
-void CPlayer::BindAction(int _iKey)
+void CPlayer::BindDown(int _iKey)
 {
 	switch (_iKey)
 	{

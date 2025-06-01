@@ -17,7 +17,6 @@ protected:
 	void Jump();
 	void Land();
 	void OffSet();
-	void Inhal();
 	void Hit();
 	void Tackle();
 
@@ -54,9 +53,10 @@ private:
 	void BindAction_TACKLE();
 	void BindAction_ESCAPE();
 	void BindAction_ATTACK();
+	void BindAction_INHAL();
 
-	void BindAxis(int _iKey);
-	void BindAction(int _iKey);
+	void BindPressing(int _iKey);
+	void BindDown(int _iKey);
 	void MultyBindAction(int _iFirstKey, int _iSecondKey);
 
 public:
@@ -90,6 +90,7 @@ protected:
 	int iJumpCount;
 
 	DWORD m_dwInhalTime;
+	bool m_bInhalCheck;
 
 	DWORD m_dwHitTimer;
 	DWORD m_dwEpicHitTimer;

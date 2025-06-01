@@ -13,7 +13,6 @@ public:
 	void LRKey();
 	bool GetInhalKey() { return m_szInhalKeyCheck; }
 	void WaterMove();
-	void Water();
 
 	bool GetWater() { return m_bWater; }
 
