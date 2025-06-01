@@ -65,7 +65,7 @@ bool CCollisionMgr::Collision_Sphere(list<CObj*> _Dst, list<CObj*> _Src)
 	return false;
 }
 
-int CCollisionMgr::SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster)
+bool CCollisionMgr::SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster)
 {
 	for (auto& Player : _pPlayer)
 	{
@@ -80,23 +80,23 @@ int CCollisionMgr::SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMons
 				{
 				case MON_NONE:
 					dynamic_cast<CPlayer*>(Player)->SetID(MON_NONE);
-					return MON_NONE;
+					return true;
 				case MON_SPARKY:
 					dynamic_cast<CPlayer*>(Player)->SetID(MON_SPARKY);
-					return MON_SPARKY;
+					return true;
 				case MON_GUNTER:
 					dynamic_cast<CPlayer*>(Player)->SetID(MON_GUNTER);
-					return MON_GUNTER;
+					return true;
 
 				case MON_SLEEPY:
 					dynamic_cast<CPlayer*>(Player)->SetID(MON_SLEEPY);
-					return MON_SLEEPY;
+					return true;
 				}
 
 			}
 		}
 	}
-	return 0;
+	return false;
 }
 
 bool CCollisionMgr::ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID)

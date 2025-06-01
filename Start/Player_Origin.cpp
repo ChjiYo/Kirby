@@ -104,6 +104,33 @@ void CPlayer_Origin::WaterMove()
 	}
 }
 
+//void CPlayer_Origin::Inhal()
+//{
+//	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
+//	BindPressing(iPressingKey);
+//}
+
+void CPlayer_Origin::BindPressing(int _iKey)
+{
+	switch (_iKey)
+	{
+	case 'Z':
+		BindAction_INHAL();
+		break;
+	}
+}
+
+void CPlayer_Origin::BindAction_INHAL()
+{
+	m_eCurState = INHAL;
+	m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
+
+	if (m_pTarget)
+		m_bInputKeyCheck = true;
+
+	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
+}
+
 void CPlayer_Origin::MotionChage()
 {
 	if (m_ePreState != m_eCurState)
@@ -327,8 +354,14 @@ int CPlayer_Origin::Update()
 
 void CPlayer_Origin::LateUpdate()
 {
+	//KeyInput();
+	//Hit();
+	//Jump();
+	//OffSet();
+	//Tackle();
 
 
+	//Inhal();
 	LRKey();
 	KeyInput();
 	Hit();
@@ -338,6 +371,7 @@ void CPlayer_Origin::LateUpdate()
 	MotionChage();
 	Tackle();
 
+	
 	__super::MoveFrame();
 }
 

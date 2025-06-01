@@ -16,6 +16,12 @@ public:
 
 	bool GetWater() { return m_bWater; }
 
+private:
+
+	void BindAction_INHAL();
+public:
+	virtual void BindPressing(int _iKey);
+
 public:
 	virtual void MotionChage();
 	virtual void Initialize();

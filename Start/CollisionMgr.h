@@ -21,7 +21,7 @@ public:
 
 	  bool Check_Sphere(CObj* pDst, CObj* pSrc);
 	 bool	Collision_Sphere(list<CObj*> _Dst, list<CObj*> _Src);
-	 int SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster);
+	 bool SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster);
 
 	 bool ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID);
 

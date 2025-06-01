@@ -422,17 +422,6 @@ void CPlayer::BindAction_ATTACK()
 	
 }
 
-void CPlayer::BindAction_INHAL()
-{
-	m_eCurState = INHAL;
-	m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
-
-	if (m_pTarget)
-		m_bInputKeyCheck = true;
-	
-	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
-}
-
 void CPlayer::BindPressing(int _iKey)
 {
 
@@ -448,10 +437,6 @@ void CPlayer::BindPressing(int _iKey)
 
 	case VK_DOWN:
 		BindAxis_DOWN();
-		break;
-
-	case 'Z':
-		BindAction_INHAL();
 		break;
 
 	default:
@@ -506,7 +491,11 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	
+	KeyInput();
+	Hit();
+	Jump();
+	OffSet();
+	Tackle();
 }
 
 void CPlayer::Render(HDC _hDC)

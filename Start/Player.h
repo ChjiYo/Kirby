@@ -53,8 +53,8 @@ private:
 	void BindAction_TACKLE();
 	void BindAction_ESCAPE();
 	void BindAction_ATTACK();
-	void BindAction_INHAL();
 
+protected:
 	void BindPressing(int _iKey);
 	void BindDown(int _iKey);
 	void MultyBindAction(int _iFirstKey, int _iSecondKey);
