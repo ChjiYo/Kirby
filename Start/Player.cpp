@@ -69,7 +69,6 @@ CPlayer::CPlayer()
 	//Input
 	m_bInputKeyCheck = false;
 
-
 	//Money
 	m_iMoney = 0;
 	m_iNowMoney = m_iMoney;
@@ -239,8 +238,10 @@ void CPlayer::Inhal()
 
 void CPlayer::Hit()
 {
-	if ( ( CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()) ||
-		CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonAttackList()) || m_bHitCheck ) && !m_bInputKeyCheck)
+	bool bCollMon = CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_MONSTER);
+	bool bCollMonAtt = CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_MONATTACK);
+
+	if (!m_bInputKeyCheck && (bCollMon || bCollMonAtt || m_bHitCheck ) )
 	{
 		m_eCurState = TEST;
 		m_bHitCheck = true;
@@ -394,8 +395,8 @@ void CPlayer::BindAction_JUMP()
 
 void CPlayer::BindAction_TACKLE()
 {
-
 	m_bTackle = true;
+	m_bInputKeyCheck = true;
 }
 
 void CPlayer::BindAction_ESCAPE()
