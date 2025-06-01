@@ -156,9 +156,10 @@ void CPlayer_Origin::MotionChage()
 
 		case HIT:
 			m_tFrame.iFrameStart = 0;
-			m_tFrame.iFrameEnd = 7;
-			m_tFrame.iMotion = 18;
-			m_tFrame.dwSpeed = 50;
+			m_tFrame.iFrameEnd = 8;
+			m_tFrame.iMotion = 24;
+
+			m_tFrame.dwSpeed = 100;
 			m_tFrame.dwTime = (DWORD)GetTickCount64();
 			break;
 
@@ -249,15 +250,6 @@ void CPlayer_Origin::MotionChage()
 			m_tFrame.iMotion = 4;
 
 			m_tFrame.dwSpeed = 200;
-			m_tFrame.dwTime = (DWORD)GetTickCount64();
-			break;
-
-		case TEST:
-			m_tFrame.iFrameStart = 0;
-			m_tFrame.iFrameEnd = 8;
-			m_tFrame.iMotion = 24;
-
-			m_tFrame.dwSpeed = 100;
 			m_tFrame.dwTime = (DWORD)GetTickCount64();
 			break;
 

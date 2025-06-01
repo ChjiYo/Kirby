@@ -44,7 +44,7 @@ void CPlayer_Rock::MotionChange()
 			m_tFrame.dwTime = (DWORD)GetTickCount64();
 			break;
 
-		case TEST:
+		case HIT:
 			m_tFrame.iFrameStart = 0;
 			m_tFrame.iFrameEnd = 7;
 			m_tFrame.iMotion = 5;

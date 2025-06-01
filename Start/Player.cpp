@@ -243,7 +243,7 @@ void CPlayer::Hit()
 
 	if (!m_bInputKeyCheck && (bCollMon || bCollMonAtt || m_bHitCheck ) )
 	{
-		m_eCurState = TEST;
+		m_eCurState = HIT;
 		m_bHitCheck = true;
 
 		if(m_szMoveDir == 'R')
@@ -268,9 +268,11 @@ void CPlayer::Hit()
 
 
 	//Epic
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonEpickList()))
+
+	bool bCollEpicMon = CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER);
+	if (bCollEpicMon)
 	{
-		m_eCurState = TEST;
+		m_eCurState = HIT;
 		m_bHitCheck = true;
 
 		if (m_szMoveDir == 'R')

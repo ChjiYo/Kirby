@@ -6,7 +6,7 @@
 class CPlayer :public CObj
 {
 public:
-	enum STATE { IDLE, WALK,SIT,JUMP,FLY,HIT,LAND, INHAL, INHALTRUE, INHAL_FALSE ,ATTACK,INHAL_IDLE, INHAL_WALK, ABSORB ,TACKLE,TEST,V_WALK , LAND_AIR,PORTAL, WATER_IDLE , WATER_WALK , WATER_UP, WATER_DOWN,STATE_END };
+	enum STATE { IDLE, WALK,SIT,JUMP,FLY,HIT,LAND, INHAL, INHALTRUE, INHAL_FALSE ,ATTACK,INHAL_IDLE, INHAL_WALK, ABSORB ,TACKLE,V_WALK , LAND_AIR,PORTAL, WATER_IDLE , WATER_WALK , WATER_UP, WATER_DOWN,STATE_END };
 
 protected:
 	CPlayer();
@@ -25,7 +25,6 @@ public:
 	void SetID(MONID _MonID) { m_eMonsterID = _MonID; }
 
 	char GetDir() { return m_szMoveDir; }
-	void SetStateHit() { m_eCurState = HIT; }
 
 	virtual void SetHp(int _iHp) { m_iHp += _iHp; }
 	virtual int GetHp() {return m_iHp; }
