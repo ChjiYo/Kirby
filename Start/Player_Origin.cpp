@@ -11,11 +11,18 @@
 #include "Factory.h"
 #include "StageMgr.h"
 
+#include "Change.h"
+#include "Player_Spark.h"
+#include "Player_Ice.h"
+#include "Player_Sleepy.h"
 
 CPlayer_Origin::CPlayer_Origin()
 {
 	m_szInhalKeyCheck = false;
 	m_bWater = false;
+	m_bInhalCheck = false;
+
+	m_fInhalTimer = 0.f;
 }
 
 CPlayer_Origin::~CPlayer_Origin()
@@ -104,13 +111,12 @@ void CPlayer_Origin::WaterMove()
 	}
 }
 
-//void CPlayer_Origin::Inhal()
-//{
-//	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
-//	BindPressing(iPressingKey);
-//}
-
 void CPlayer_Origin::BindPressing(int _iKey)
+{
+	m_bInhalCheck ? InhalAnim(_iKey) : BaseAnim(_iKey);
+}
+
+void CPlayer_Origin::BaseAnim(int _iKey)
 {
 	switch (_iKey)
 	{
@@ -118,6 +124,38 @@ void CPlayer_Origin::BindPressing(int _iKey)
 		BindAction_INHAL();
 		break;
 	}
+}
+
+void CPlayer_Origin::InhalAnim(int _iKey)
+{
+	m_fSpeed = 3.f;
+
+	switch (_iKey)
+	{
+	case VK_LEFT:
+		BindAxis_LEFT(static_cast<CPlayer::STATE>(INHAL_WALK));
+		break;
+
+	case VK_RIGHT:
+		BindAxis_RIGHT(static_cast<CPlayer::STATE>(INHAL_WALK));
+		break;
+
+	case VK_DOWN:
+		BindAction_TRANSFORM();
+		break;
+	default:
+		BindAxis_MONE(static_cast<CPlayer::STATE>(INHAL_IDLE));
+		break;
+	}
+}
+
+void CPlayer_Origin::KeyInput()
+{
+	if(m_bInhalCheck == false)
+		__super::KeyInput();
+ 
+	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
+	BindPressing(iPressingKey);
 }
 
 void CPlayer_Origin::BindAction_INHAL()
@@ -129,6 +167,46 @@ void CPlayer_Origin::BindAction_INHAL()
 		m_bInputKeyCheck = true;
 
 	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
+}
+
+void CPlayer_Origin::BindAction_TRANSFORM()
+{
+	m_eCurState = static_cast<CPlayer::STATE>(ABSORB);
+
+	m_fInhalTimer += 0.1f;
+
+	if (m_fInhalTimer >= 3.0f)
+	{
+		m_bInhalCheck = false;
+		CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CChange>::Create(m_tInfo.fX, m_tInfo.fY));
+		m_iNowHp = GetHp();
+		m_iNowMoney = GetMoney();
+		switch (m_eMonsterID)
+		{
+		case MON_NONE:
+			break;
+
+		case MON_SPARKY:
+			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Spark>::Create(m_tInfo.fX, m_tInfo.fY));
+			break;
+
+		case MON_GUNTER:
+			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Ice>::Create(m_tInfo.fX, m_tInfo.fY));
+			break;
+
+		case MON_SLEEPY:
+			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Sleepy>::Create(m_tInfo.fX, m_tInfo.fY));
+			break;
+		}
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetHpInput(m_iNowHp);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetMoneyInput(m_iNowMoney);
+
+		m_fInhalTimer = 0.f;
+	}
+	
 }
 
 void CPlayer_Origin::MotionChage()
@@ -231,7 +309,7 @@ void CPlayer_Origin::MotionChage()
 			m_tFrame.dwTime = (DWORD)GetTickCount64();
 			break;
 
-		case INHAL_IDLE:
+		case static_cast<CPlayer::STATE>(INHAL_IDLE):
 			m_tFrame.iFrameStart = 0;
 			m_tFrame.iFrameEnd = 1;
 			m_tFrame.iMotion = 14;
@@ -354,14 +432,6 @@ int CPlayer_Origin::Update()
 
 void CPlayer_Origin::LateUpdate()
 {
-	//KeyInput();
-	//Hit();
-	//Jump();
-	//OffSet();
-	//Tackle();
-
-
-	//Inhal();
 	LRKey();
 	KeyInput();
 	Hit();
@@ -371,7 +441,6 @@ void CPlayer_Origin::LateUpdate()
 	MotionChage();
 	Tackle();
 
-	
 	__super::MoveFrame();
 }
 

@@ -6,14 +6,17 @@
 class CPlayer :public CObj
 {
 public:
-	enum STATE { IDLE, WALK,SIT,JUMP,FLY,HIT,LAND, INHAL, INHALTRUE, INHAL_FALSE ,ATTACK,INHAL_IDLE, INHAL_WALK, ABSORB ,TACKLE,V_WALK , LAND_AIR,PORTAL, WATER_IDLE , WATER_WALK , WATER_UP, WATER_DOWN,STATE_END };
+	enum  STATE { IDLE, WALK,SIT,JUMP,FLY,HIT,LAND, INHAL, ATTACK, TACKLE,V_WALK , LAND_AIR,PORTAL, WATER_IDLE , WATER_WALK , WATER_UP, WATER_DOWN,STATE_END };
+
 
 protected:
 	CPlayer();
 	virtual ~CPlayer();
 
 protected:
-	void KeyInput();
+	virtual void KeyInput();
+
+protected:
 	void Jump();
 	void Land();
 	void OffSet();
@@ -39,15 +42,16 @@ public:
 	virtual PLAYERID GetPlayerID() { return m_ePlayerID; }
 	
 
-private:
 //Å° ÇÒ´ç
 
 //Axis 
-	void BindAxis_LEFT();
-	void BindAxis_RIGHT();
+protected:
+	void BindAxis_LEFT(STATE eTpye  = WALK);
+	void BindAxis_RIGHT(STATE eTpye = WALK);
+	void BindAxis_MONE(STATE eTpye = IDLE);
 	void BindAxis_DOWN();
-	void BindAxis_MONE();
 
+private :
 //Action
 	void BindAction_JUMP();
 	void BindAction_TACKLE();

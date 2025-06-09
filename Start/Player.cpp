@@ -308,9 +308,9 @@ void CPlayer::Tackle()
 	}
 }
 
-void CPlayer::BindAxis_LEFT()
+void CPlayer::BindAxis_LEFT(STATE eTpye)
 {
-	m_eCurState = WALK;
+	m_eCurState = eTpye;
 	m_szMoveDir = 'L';
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
@@ -320,9 +320,9 @@ void CPlayer::BindAxis_LEFT()
 	}
 }
 
-void CPlayer::BindAxis_RIGHT()
+void CPlayer::BindAxis_RIGHT(STATE eTpye)
 {
-	m_eCurState = WALK;
+	m_eCurState = eTpye;
 	m_szMoveDir = 'R';
 
 
@@ -339,10 +339,10 @@ void CPlayer::BindAxis_DOWN()
 		m_eCurState = SIT;
 }
 
-void CPlayer::BindAxis_MONE()
+void CPlayer::BindAxis_MONE(STATE eTpye)
 {	
 	m_bInputKeyCheck = false;
-	m_eCurState = IDLE;
+	m_eCurState = eTpye;
 }
 
 

@@ -9,6 +9,9 @@ public:
 	CPlayer_Origin();
 	virtual ~CPlayer_Origin();
 
+protected:
+	enum ORIGIN_STATE { INHAL_IDLE = 100, INHAL_WALK , INHALTRUE, INHAL_FALSE, ABSORB, ORIGIN_END};
+
 public:
 	void LRKey();
 	bool GetInhalKey() { return m_szInhalKeyCheck; }
@@ -17,10 +20,16 @@ public:
 	bool GetWater() { return m_bWater; }
 
 private:
+	virtual void KeyInput();
 
 	void BindAction_INHAL();
-public:
+	void BindAction_TRANSFORM();
+
+private:
 	virtual void BindPressing(int _iKey);
+
+	void BaseAnim(int _iKey);
+	void InhalAnim(int _iKey);
 
 public:
 	virtual void MotionChage();
@@ -35,6 +44,8 @@ private:
 	bool m_szInhalKeyCheck;
 	bool m_bWater;
 	bool m_bInhalCheck;
+
+	float m_fInhalTimer;
 
 
 };
