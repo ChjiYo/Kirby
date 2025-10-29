@@ -2,6 +2,7 @@
 
 #include "Define.h"
 #include "MyBmp.h"
+#include <string>
 
 class CBmpMgr
 {

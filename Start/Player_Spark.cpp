@@ -127,7 +127,7 @@ void CPlayer_Spark::Initialize()
 {
 	//30.f , 37.f
 
-	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,32.f,35.f };
+	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,30.f,40.f };
 	m_bJump = false;
 	m_fTime = 0.f;
 
@@ -198,7 +198,7 @@ void CPlayer_Spark::Render(HDC _hDC)
 		(int)m_tInfo.fCY,
 		RGB(255, 10, 255));
 
-	// m_tFrame.iMotion + 5
+	//// m_tFrame.iMotion + 5
 }
 
 void CPlayer_Spark::Release()
