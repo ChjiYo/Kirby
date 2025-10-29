@@ -57,6 +57,7 @@ private :
 	void BindAction_TACKLE();
 	void BindAction_ESCAPE();
 	void BindAction_ATTACK();
+	void BindAction_ITEM();
 
 protected:
 	void BindPressing(int _iKey);
