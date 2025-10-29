@@ -93,22 +93,6 @@ void CPlayer::KeyInput()
 	BindDown(iDownKey);
 
 	MultyBindAction(iPressingKey, iDownKey );
-
-//기타 키들 (추후에 업데이트 필요)
-	//Inhal
-
-	if (CKeyMgr::GetInst().Key_Down('L'))
-	{
-		//Using Item
-		CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX , 0));
-		dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
-		//CObjMgr::GetInst().Add_Create(OBJ_TEMP, CFactory<CTemp>::Create());
-	}
-	else if (CKeyMgr::GetInst().Key_Down('J'))
-	{
-		//Hp Down
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
-	}
 }
 
 void CPlayer::Jump()
@@ -422,6 +406,14 @@ void CPlayer::BindAction_ATTACK()
 	
 }
 
+void CPlayer::BindAction_ITEM()
+{
+	//Using Item
+	CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX, 0));
+	dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
+	//CObjMgr::GetInst().Add_Create(OBJ_TEMP, CFactory<CTemp>::Create());
+}
+
 void CPlayer::BindPressing(int _iKey)
 {
 
@@ -460,6 +452,8 @@ void CPlayer::BindDown(int _iKey)
 	case 'C':
 		BindAction_ATTACK();
 		break;
+	case 'J':
+		BindAction_ITEM();
 
 	default:
 		break;
