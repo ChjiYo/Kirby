@@ -524,6 +524,7 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
+	
 	KeyInput();
 	Hit();
 	Jump();
