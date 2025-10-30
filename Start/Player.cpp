@@ -301,7 +301,6 @@ void CPlayer::BindAxis_LEFT(STATE eTpye)
 	m_szMoveDir = 'L';
 	m_tInfo.fX -= m_fSpeed;
 	m_pFrameKey = L"Player_LEFT";
-	m_eCurState = WALK;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -316,7 +315,6 @@ void CPlayer::BindAxis_RIGHT(STATE eTpye)
 	m_szMoveDir = 'R';
 	m_tInfo.fX += m_fSpeed;
 	m_pFrameKey = L"Player_RIGHT";
-	m_eCurState = WALK;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
