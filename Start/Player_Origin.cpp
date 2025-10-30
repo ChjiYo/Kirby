@@ -34,18 +34,18 @@ void CPlayer_Origin::LRKey()
 {
 	if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
 	{
-		m_tInfo.fX -= m_fSpeed;
 
 		m_pFrameKey = L"Player_LEFT";
+		m_tInfo.fX -= m_fSpeed;
 
 		m_eCurState = WALK;
 	}
 
 	else if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
 	{
-		m_tInfo.fX += m_fSpeed;
+		
 		m_pFrameKey = L"Player_RIGHT";
-
+		m_tInfo.fX += m_fSpeed;
 		m_eCurState = WALK;
 	}
 	else if (CKeyMgr::GetInst().Key_Pressing('Z') && !m_bInhalCheck)

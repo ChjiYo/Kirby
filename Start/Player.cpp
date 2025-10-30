@@ -93,6 +93,7 @@ void CPlayer::KeyInput()
 	BindDown(iDownKey);
 
 	MultyBindAction(iPressingKey, iDownKey );
+
 }
 
 void CPlayer::Jump()
@@ -309,7 +310,6 @@ void CPlayer::BindAxis_RIGHT(STATE eTpye)
 	m_eCurState = eTpye;
 	m_szMoveDir = 'R';
 
-
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
 		//CSoundMgr::GetInst().PlaySoundW(L"Walk.wav", SOUND_EFFECT, m_fVolume);
@@ -321,6 +321,16 @@ void CPlayer::BindAxis_DOWN()
 {
 	if(m_eCurState != TACKLE)
 		m_eCurState = SIT;
+}
+
+void CPlayer::BindAxis_JUMP_LEFT()
+{
+	//m_tInfo.fX -= m_fSpeed;
+}
+
+void CPlayer::BindAxis_JUMP_RIGHT()
+{
+	//m_tInfo.fX += m_fSpeed;
 }
 
 void CPlayer::BindAxis_MONE(STATE eTpye)
@@ -465,6 +475,16 @@ void CPlayer::MultyBindAction(int _iFirstKey, int _iSecondKey)
 	if (_iFirstKey == VK_DOWN && _iSecondKey == 'X')
 	{
 		BindAction_TACKLE();
+	}
+
+	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
+	{
+		BindAxis_JUMP_LEFT();
+	}
+
+	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
+	{
+		BindAxis_JUMP_RIGHT();
 	}
 }
 
