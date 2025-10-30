@@ -89,6 +89,8 @@ void CPlayer::KeyInput()
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
 	int iDownKey = CKeyMgr::GetInst().GetDownKey();
 
+
+
 	BindPressing(iPressingKey);
 	BindDown(iDownKey);
 
@@ -297,6 +299,9 @@ void CPlayer::BindAxis_LEFT(STATE eTpye)
 {
 	m_eCurState = eTpye;
 	m_szMoveDir = 'L';
+	m_tInfo.fX -= m_fSpeed;
+	m_pFrameKey = L"Player_LEFT";
+	m_eCurState = WALK;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -307,8 +312,11 @@ void CPlayer::BindAxis_LEFT(STATE eTpye)
 
 void CPlayer::BindAxis_RIGHT(STATE eTpye)
 {
-	m_eCurState = eTpye;
+  	m_eCurState = eTpye;
 	m_szMoveDir = 'R';
+	m_tInfo.fX += m_fSpeed;
+	m_pFrameKey = L"Player_RIGHT";
+	m_eCurState = WALK;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -325,12 +333,12 @@ void CPlayer::BindAxis_DOWN()
 
 void CPlayer::BindAxis_JUMP_LEFT()
 {
-	//m_tInfo.fX -= m_fSpeed;
+	m_tInfo.fX -= m_fSpeed;
 }
 
 void CPlayer::BindAxis_JUMP_RIGHT()
 {
-	//m_tInfo.fX += m_fSpeed;
+	m_tInfo.fX += m_fSpeed;
 }
 
 void CPlayer::BindAxis_MONE(STATE eTpye)
@@ -477,14 +485,27 @@ void CPlayer::MultyBindAction(int _iFirstKey, int _iSecondKey)
 		BindAction_TACKLE();
 	}
 
-	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
+	/*if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
 	{
 		BindAxis_JUMP_LEFT();
 	}
 
-	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
+	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_RIGHT)
 	{
 		BindAxis_JUMP_RIGHT();
+	}*/
+
+	if (CKeyMgr::GetInst().Key_Pressing(VK_SPACE))
+	{
+		if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
+		{
+			BindAxis_JUMP_LEFT();
+		}
+
+		else if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
+		{
+			BindAxis_JUMP_RIGHT();
+		}
 	}
 }
 

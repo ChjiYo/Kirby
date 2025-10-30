@@ -30,25 +30,9 @@ CPlayer_Origin::~CPlayer_Origin()
 	Release();
 }
 
-void CPlayer_Origin::LRKey()
+void CPlayer_Origin::LRKey()	
 {
-	if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
-	{
-
-		m_pFrameKey = L"Player_LEFT";
-		m_tInfo.fX -= m_fSpeed;
-
-		m_eCurState = WALK;
-	}
-
-	else if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
-	{
-		
-		m_pFrameKey = L"Player_RIGHT";
-		m_tInfo.fX += m_fSpeed;
-		m_eCurState = WALK;
-	}
-	else if (CKeyMgr::GetInst().Key_Pressing('Z') && !m_bInhalCheck)
+	if (CKeyMgr::GetInst().Key_Pressing('Z') && !m_bInhalCheck)
 	{
 		//CSoundMgr::GetInst().PlaySoundW(L"04_Absorb.wav", SOUND_EFFECT, m_fVolume);
 
@@ -120,6 +104,14 @@ void CPlayer_Origin::BaseAnim(int _iKey)
 {
 	switch (_iKey)
 	{
+	case VK_LEFT:
+		//BindAxis_LEFT();
+		break;
+
+	case VK_RIGHT:
+		//BindAxis_RIGHT();
+		break;
+
 	case 'Z':
 		BindAction_INHAL();
 		break;
@@ -155,6 +147,7 @@ void CPlayer_Origin::KeyInput()
 		__super::KeyInput();
  
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
+
 	BindPressing(iPressingKey);
 }
 
