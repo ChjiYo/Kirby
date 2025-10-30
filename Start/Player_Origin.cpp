@@ -104,14 +104,6 @@ void CPlayer_Origin::BaseAnim(int _iKey)
 {
 	switch (_iKey)
 	{
-	case VK_LEFT:
-		//BindAxis_LEFT();
-		break;
-
-	case VK_RIGHT:
-		//BindAxis_RIGHT();
-		break;
-
 	case 'Z':
 		BindAction_INHAL();
 		break;
@@ -390,6 +382,7 @@ void CPlayer_Origin::MotionChange()
 
 void CPlayer_Origin::Initialize()
 {
+	m_pBackMontion = L"Player";
 	m_tInfo = { SCALE_X* 0.5f ,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
@@ -419,23 +412,15 @@ int CPlayer_Origin::Update()
 
 
 	__super::RectUpdate();
+	m_pFrameKey;
+	int iDebug;
 
 	return OBJ_NOEVENT;
 }
 
 void CPlayer_Origin::LateUpdate()
 {
-	//LRKey();
-	//KeyInput();
-	//Hit();
-	//Jump();
-	//OffSet();
-	//WaterMove();
-	//MotionChage();
-	//Tackle();
-
 	__super::LateUpdate();
-
 	__super::MoveFrame();
 }
 

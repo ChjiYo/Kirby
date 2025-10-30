@@ -89,13 +89,10 @@ void CPlayer::KeyInput()
 	int iPressingKey = CKeyMgr::GetInst().GetPressingKey();
 	int iDownKey = CKeyMgr::GetInst().GetDownKey();
 
-
-
 	BindPressing(iPressingKey);
 	BindDown(iDownKey);
 
 	MultyBindAction(iPressingKey, iDownKey );
-
 }
 
 void CPlayer::Jump()
@@ -300,7 +297,12 @@ void CPlayer::BindAxis_LEFT(STATE eTpye)
 	m_eCurState = eTpye;
 	m_szMoveDir = 'L';
 	m_tInfo.fX -= m_fSpeed;
-	m_pFrameKey = L"Player_LEFT";
+
+	memset(szBuffer, 0, sizeof(szBuffer));
+	wcscpy_s(szBuffer, m_pBackMontion);
+	wcscat_s(szBuffer, L"_LEFT");
+
+	m_pFrameKey = szBuffer;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -314,7 +316,12 @@ void CPlayer::BindAxis_RIGHT(STATE eTpye)
   	m_eCurState = eTpye;
 	m_szMoveDir = 'R';
 	m_tInfo.fX += m_fSpeed;
-	m_pFrameKey = L"Player_RIGHT";
+
+	memset(szBuffer, 0, sizeof(szBuffer));
+	wcscpy_s(szBuffer, m_pBackMontion);
+	wcscat_s(szBuffer, L"_RIGHT");
+	
+	m_pFrameKey = szBuffer;
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
@@ -327,16 +334,6 @@ void CPlayer::BindAxis_DOWN()
 {
 	if(m_eCurState != TACKLE)
 		m_eCurState = SIT;
-}
-
-void CPlayer::BindAxis_JUMP_LEFT()
-{
-	m_tInfo.fX -= m_fSpeed;
-}
-
-void CPlayer::BindAxis_JUMP_RIGHT()
-{
-	m_tInfo.fX += m_fSpeed;
 }
 
 void CPlayer::BindAxis_MONE(STATE eTpye)
@@ -470,7 +467,7 @@ void CPlayer::BindDown(int _iKey)
 		break;
 	case 'J':
 		BindAction_ITEM();
-
+		break;
 	default:
 		break;
 	}
@@ -483,26 +480,17 @@ void CPlayer::MultyBindAction(int _iFirstKey, int _iSecondKey)
 		BindAction_TACKLE();
 	}
 
-	/*if (_iFirstKey == VK_SPACE && _iSecondKey == VK_LEFT)
-	{
-		BindAxis_JUMP_LEFT();
-	}
-
-	if (_iFirstKey == VK_SPACE && _iSecondKey == VK_RIGHT)
-	{
-		BindAxis_JUMP_RIGHT();
-	}*/
 
 	if (CKeyMgr::GetInst().Key_Pressing(VK_SPACE))
 	{
 		if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
 		{
-			BindAxis_JUMP_LEFT();
+			m_tInfo.fX -= m_fSpeed;
 		}
 
 		else if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
 		{
-			BindAxis_JUMP_RIGHT();
+			m_tInfo.fX += m_fSpeed;
 		}
 	}
 }
