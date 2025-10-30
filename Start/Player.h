@@ -54,8 +54,6 @@ protected:
 	void BindAxis_RIGHT(STATE eTpye = WALK);
 	void BindAxis_MONE(STATE eTpye = IDLE);
 	void BindAxis_DOWN();
-	void BindAxis_JUMP_LEFT();
-	void BindAxis_JUMP_RIGHT();
 
 private :
 //Action
@@ -119,6 +117,8 @@ protected:
 	//Money
 	int m_iMoney;
 	int m_iNowMoney;
-	
+
+	const TCHAR* m_pBackMontion;
+	wchar_t szBuffer[256];
 };
 

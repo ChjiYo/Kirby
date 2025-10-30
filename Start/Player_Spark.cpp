@@ -129,8 +129,9 @@ void CPlayer_Spark::MotionChange()
 
 void CPlayer_Spark::Initialize()
 {
-	//30.f , 37.f
+	m_pBackMontion = L"Player_Spark";
 
+	//30.f , 37.f
 	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,30.f,40.f };
 	m_bJump = false;
 	m_fTime = 0.f;
