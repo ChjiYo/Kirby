@@ -77,6 +77,12 @@ CPlayer::CPlayer()
 	//ID
 	m_ePlayerID = PLAYER_CLASIC;
 	m_eMonsterID = MON_NONE;
+
+	//m_pFrameKey
+	memset(szBuffer, 0, sizeof(szBuffer));
+	m_pBackMontion = nullptr;
+
+	m_bSwimming = false;
 }
 
 CPlayer::~CPlayer()
@@ -424,7 +430,6 @@ void CPlayer::BindAction_ITEM()
 	//Using Item
 	CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX, 0));
 	dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
-	//CObjMgr::GetInst().Add_Create(OBJ_TEMP, CFactory<CTemp>::Create());
 }
 
 void CPlayer::BindPressing(int _iKey)
@@ -479,7 +484,6 @@ void CPlayer::MultyBindAction(int _iFirstKey, int _iSecondKey)
 	{
 		BindAction_TACKLE();
 	}
-
 
 	if (CKeyMgr::GetInst().Key_Pressing(VK_SPACE))
 	{

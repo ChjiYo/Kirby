@@ -40,6 +40,7 @@ public:
 
 	virtual void SetHpInput(int _iHp) { m_iHp = _iHp; }
 	virtual void SetMoneyInput(int _iMoney) { m_iMoney = _iMoney; }
+	void SetSwimming(bool _bSwitch) { m_bSwimming = _bSwitch; }
 
 	bool GetInhal() { return m_bInputKeyCheck; }
 
@@ -118,7 +119,11 @@ protected:
 	int m_iMoney;
 	int m_iNowMoney;
 
+	//m_pFrameKey
 	const TCHAR* m_pBackMontion;
 	wchar_t szBuffer[256];
+
+	//Swimming
+	bool m_bSwimming;
 };
 

@@ -383,7 +383,7 @@ void CPlayer_Origin::MotionChange()
 void CPlayer_Origin::Initialize()
 {
 	m_pBackMontion = L"Player";
-	m_tInfo = { SCALE_X* 0.5f ,SCALE_Y * 0.5f,32.f,35.f };
+	m_tInfo = { SCALE_X* 0.5f + 1500.f,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
 

@@ -11,10 +11,14 @@ public:
 	virtual ~CStageA3();
 
 public:
+	void SwimmingPool();
+
+public:
 	virtual void Initialize();
 	virtual int Update();
 	virtual void LateUpdate();
 	virtual void Render(HDC _hDC);
 	virtual void Release();
+
 };
 

@@ -30,6 +30,18 @@ CStageA3::~CStageA3()
     Release();
 }
 
+
+void CStageA3::SwimmingPool()
+{
+    float fPlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
+    float fPlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
+
+    bool bSwitch = fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 340.f;
+
+    static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetSwimming(bSwitch);
+}
+
+
 void CStageA3::Initialize()
 {
     CBmpMgr::GetInst().InsertBmp(L"../Kirby/Map/Stage1/Map_NewStage3.bmp", L"Ground3");
@@ -43,8 +55,8 @@ void CStageA3::Initialize()
     CScrollMgr::GetInst().SetScrollX();
     CScrollMgr::GetInst().SetScrollY();
 
-    //CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Origin>::Create());
-    //CObjMgr::GetInst().Add_Create(OBJ_MOUSE, CFactory<CMouse>::Create());
+    CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Origin>::Create());
+    CObjMgr::GetInst().Add_Create(OBJ_MOUSE, CFactory<CMouse>::Create());
 
     //CObjMgr::GetInst().Add_Create(OBJ_MONSTER, CFactory<CWadle>::Create(1000.f, 325.f));
     CObjMgr::GetInst().Add_Create(OBJ_NPC, CFactory<CNPC_Mario>::Create(1310.f, 325.f));
@@ -70,6 +82,7 @@ int CStageA3::Update()
 void CStageA3::LateUpdate()
 {
     CObjMgr::GetInst().LateUpdate();
+    SwimmingPool();
 }
 
 void CStageA3::Render(HDC _hDC)
