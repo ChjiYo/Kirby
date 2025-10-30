@@ -9,8 +9,9 @@ public:
 	CPlayer_Spark();
 	~CPlayer_Spark();
 
-public:
-	void LRKey();
+protected:
+	virtual void LRKey();
+	virtual void WaterMove();
 
 public:
 	virtual void MotionChange();

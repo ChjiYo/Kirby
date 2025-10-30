@@ -23,6 +23,10 @@ protected:
 	void Hit();
 	void Tackle();
 
+protected:
+	virtual void WaterMove() PUSE;
+	virtual void LRKey() PUSE;
+
 public:
 	void SetID(MONID _MonID) { m_eMonsterID = _MonID; }
 
@@ -67,7 +71,7 @@ protected:
 	void MultyBindAction(int _iFirstKey, int _iSecondKey);
 
 public:
-	virtual void MotionChange();
+	virtual void MotionChange() PUSE;
 	virtual void Initialize();
 	virtual int Update();
 	virtual void LateUpdate();

@@ -524,11 +524,13 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	
+	LRKey();
 	KeyInput();
 	Hit();
 	Jump();
 	OffSet();
+	WaterMove();
+	MotionChange();
 	Tackle();
 }
 

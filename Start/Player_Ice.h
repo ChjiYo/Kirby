@@ -9,8 +9,10 @@ public:
 	CPlayer_Ice();
 	~CPlayer_Ice();
 
-public:
-	void LRKey();
+
+protected:
+	virtual void LRKey();
+	virtual void WaterMove();
 
 public:
 	virtual void MotionChange();

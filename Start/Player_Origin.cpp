@@ -202,7 +202,7 @@ void CPlayer_Origin::BindAction_TRANSFORM()
 	
 }
 
-void CPlayer_Origin::MotionChage()
+void CPlayer_Origin::MotionChange()
 {
 	if (m_ePreState != m_eCurState)
 	{
@@ -425,14 +425,16 @@ int CPlayer_Origin::Update()
 
 void CPlayer_Origin::LateUpdate()
 {
-	LRKey();
-	KeyInput();
-	Hit();
-	Jump();
-	OffSet();
-	WaterMove();
-	MotionChage();
-	Tackle();
+	//LRKey();
+	//KeyInput();
+	//Hit();
+	//Jump();
+	//OffSet();
+	//WaterMove();
+	//MotionChage();
+	//Tackle();
+
+	__super::LateUpdate();
 
 	__super::MoveFrame();
 }

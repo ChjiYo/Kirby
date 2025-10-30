@@ -13,15 +13,11 @@ protected:
 	enum ORIGIN_STATE { INHAL_IDLE = 100, INHAL_WALK , INHALTRUE, INHAL_FALSE, ABSORB, ORIGIN_END};
 
 public:
-	void LRKey();
 	bool GetInhalKey() { return m_szInhalKeyCheck; }
-	void WaterMove();
 
 	bool GetWater() { return m_bWater; }
 
 private:
-	virtual void KeyInput();
-
 	void BindAction_INHAL();
 	void BindAction_TRANSFORM();
 
@@ -31,8 +27,13 @@ private:
 	void BaseAnim(int _iKey);
 	void InhalAnim(int _iKey);
 
+protected:
+	virtual void KeyInput();
+	virtual void LRKey();
+	virtual void WaterMove();
+
 public:
-	virtual void MotionChage();
+	virtual void MotionChange();
 	virtual void Initialize();
 	virtual int Update();
 	virtual void LateUpdate();

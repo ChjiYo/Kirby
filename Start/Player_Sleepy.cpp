@@ -30,6 +30,15 @@ void CPlayer_Sleepy::MotionChange()
 
 }
 
+void CPlayer_Sleepy::WaterMove()
+{
+}
+
+void CPlayer_Sleepy::LRKey()
+{
+}
+
+
 void CPlayer_Sleepy::Initialize()
 {
 	m_tInfo = { SCALE_X * 0.5f,SCALE_Y * 0.5f,128.f,128.f };
@@ -90,3 +99,4 @@ void CPlayer_Sleepy::Render(HDC _hDC)
 void CPlayer_Sleepy::Release()
 {
 }
+

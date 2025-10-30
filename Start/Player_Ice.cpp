@@ -64,6 +64,10 @@ void CPlayer_Ice::LRKey()
 	}
 }
 
+void CPlayer_Ice::WaterMove()
+{
+}
+
 void CPlayer_Ice::MotionChange()
 {
 	if (m_ePreState != m_eCurState)

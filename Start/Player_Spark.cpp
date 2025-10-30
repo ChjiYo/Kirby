@@ -61,6 +61,10 @@ void CPlayer_Spark::LRKey()
 
 }
 
+void CPlayer_Spark::WaterMove()
+{
+}
+
 void CPlayer_Spark::MotionChange()
 {
 	if (m_ePreState != m_eCurState)

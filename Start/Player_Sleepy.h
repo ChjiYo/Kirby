@@ -20,6 +20,10 @@ public:
 	virtual void Render(HDC _hDC);
 	virtual void Release();
 
+protected:
+	virtual void WaterMove();
+	virtual void LRKey();
+
 
 };
 
