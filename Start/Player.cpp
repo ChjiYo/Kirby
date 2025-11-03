@@ -134,7 +134,7 @@ void CPlayer::Jump()
 		}
 		
 	}
-	else if (!isWater && bLineCol)
+	else if (!m_bSwimming && bLineCol)
 	{
 		Land();
 	}
@@ -401,7 +401,6 @@ void CPlayer::BindAction_ESCAPE()
 		//m_eCurState = PORTAL;
 	}
 }
-
 
 void CPlayer::BindAction_ATTACK()
 {

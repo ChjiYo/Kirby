@@ -34,7 +34,7 @@ CStageA3::~CStageA3()
 void CStageA3::SwimmingPool()
 {
     float fPlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
-    float fPlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
+    float fPlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY;
 
     bool bSwitch = fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 340.f;
 
