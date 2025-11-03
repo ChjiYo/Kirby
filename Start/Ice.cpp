@@ -25,7 +25,7 @@ CIce::~CIce()
 void CIce::DamageHit()
 {
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()) && m_dwDamageTimer + 200 < (DWORD)GetTickCount64())
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_MONSTER, OBJ_MONSTER) && m_dwDamageTimer + 200 < (DWORD)GetTickCount64())
 	{
  		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
@@ -36,7 +36,7 @@ void CIce::DamageHit()
 		}
 	}
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonEpickList()) && (m_dwDamageTimer + 200 < (DWORD)GetTickCount64()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER) && (m_dwDamageTimer + 200 < (DWORD)GetTickCount64()))
 	{
 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();

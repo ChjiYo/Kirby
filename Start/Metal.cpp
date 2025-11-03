@@ -17,7 +17,7 @@ CMetal::~CMetal()
 
 void CMetal::Inter()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetNPCList(), CObjMgr::GetInst().GetPlayerList()) && CKeyMgr::GetInst().Key_Down('Y'))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_NPC, OBJ_PLAYER) && CKeyMgr::GetInst().Key_Down('Y'))
 	{
 		dynamic_cast<CQuest*>(CObjMgr::GetInst().GetUIInfo())->SetQuest();
 	}

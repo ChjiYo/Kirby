@@ -68,7 +68,7 @@ void CItem_Now::LateUpdate()
 	
 	int iFullHp = 20 - dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp();
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetItemList(), CObjMgr::GetInst().GetPlayerList()) )
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ITEM, OBJ_PLAYER))
 	{
 		//InvenCollisionCheck
 

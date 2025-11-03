@@ -254,12 +254,9 @@ void CDDDKing::LateUpdate()
 		Move();
 	}
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonEpickList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER))
 	{
-		//m_tInfo.fX -= m_fSpeed;
 		m_bMoveStop = true;
-		//m_eCurState = IDLE;
-		//m_pFrameKey = L"DDDKING_LEFT";
 	}
 
 	AttackA();

@@ -25,7 +25,7 @@ CNPC_Kawasaki::~CNPC_Kawasaki()
 
 void CNPC_Kawasaki::Inter()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetNPCList(), CObjMgr::GetInst().GetPlayerList()) && CKeyMgr::GetInst().Key_Down('P'))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_NPC, OBJ_PLAYER) && CKeyMgr::GetInst().Key_Down('P'))
 	{
 		CObjMgr::GetInst().Add_Create(OBJ_UI, CFactory<CRSP>::Create());
 	}

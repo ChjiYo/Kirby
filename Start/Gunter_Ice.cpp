@@ -18,13 +18,13 @@ CGunter_Ice::~CGunter_Ice()
 
 void CGunter_Ice::DamageHit()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonEpickList()) && m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER) && m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
 	{
 		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
 	}
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()) && m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER)&& m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
 	{
 		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();

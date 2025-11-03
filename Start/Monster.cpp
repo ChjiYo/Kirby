@@ -31,13 +31,13 @@ void CMonster::Move()
 
 void CMonster::Hit()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonEpickList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
 	{
 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetAttackInfo())->GetDamage()));
 		//CObjMgr::GetInst().GetAttackInfo()->SetDead();
 	}
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetAttackInfo())->GetDamage()));
 		//CObjMgr::GetInst().GetAttackInfo()->SetDead();

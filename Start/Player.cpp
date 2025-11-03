@@ -245,7 +245,7 @@ void CPlayer::Hit()
 
 	if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64())
 	{
-		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonEpickList()) )	
+		if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER))
 		{
 			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
 		}
@@ -282,7 +282,7 @@ void CPlayer::Tackle()
 
 		}
 
-		if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList()))
+		if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_MONSTER))
 		{
 			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
 		}
@@ -380,7 +380,7 @@ void CPlayer::BindAction_ESCAPE()
 		switch (CStageMgr::GetInst().GetCurStage())
 		{
 		case STAGE_A1:
-			CStageMgr::GetInst().StageChage(STAGE_A3);
+			CStageMgr::GetInst().StageChage(STAGE_A2);
 			break;
 
 		case STAGE_A2:

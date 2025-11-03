@@ -10,7 +10,7 @@
 
 CStageMgr::CStageMgr()
 {
-	m_eCurStage = STAGE_A3;
+	m_eCurStage = STAGE_A1;
 	m_ePreStage = STAGE_END;
 
 	m_pStage = nullptr;

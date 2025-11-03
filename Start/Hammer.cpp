@@ -22,13 +22,13 @@ void CHammer::MotionChange()
 
 void CHammer::DamageHit()
 {
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonEpickList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
 	{
 		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
 		m_bDead = true;
 	}
 
-	if (CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
 		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
 		m_bDead = true;

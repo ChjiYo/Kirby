@@ -16,6 +16,8 @@
 #include "Player_Ice.h"
 #include "Player_Sleepy.h"
 
+#include "Monster.h"
+
 CPlayer_Origin::CPlayer_Origin()
 {
 	m_szInhalKeyCheck = false;
@@ -118,6 +120,39 @@ void CPlayer_Origin::InhalAnim(int _iKey)
 	}
 }
 
+bool CPlayer_Origin::InhalIDCheck()
+{
+	CMonster* pMonster = dynamic_cast<CMonster*>(CCollisionMgr::GetInst().FindCollObject(OBJ_PLAYER, OBJ_MONSTER));
+
+	if(pMonster != nullptr)
+	{
+		
+		pMonster->SetDead();
+		MONID eMonID = pMonster->GetID();
+
+		switch (eMonID)
+		{
+		case MON_NONE:
+			m_eMonsterID = MON_NONE;
+			return true;
+		case MON_SPARKY:
+
+			m_eMonsterID = MON_SPARKY;
+			return true;
+
+		case MON_GUNTER:
+			m_eMonsterID = MON_GUNTER;
+			return true;
+
+		case MON_SLEEPY:
+			m_eMonsterID = MON_SLEEPY;
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void CPlayer_Origin::KeyInput()
 {
 	if(m_bInhalCheck == false)
@@ -136,7 +171,8 @@ void CPlayer_Origin::BindAction_INHAL()
 	if (m_pTarget)
 		m_bInputKeyCheck = true;
 
-	m_bInhalCheck = CCollisionMgr::GetInst().SetPlayerInhal_Check(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonsterList());
+	m_bInhalCheck = InhalIDCheck();
+		
 }
 
 void CPlayer_Origin::BindAction_TRANSFORM()
@@ -368,7 +404,7 @@ void CPlayer_Origin::MotionChange()
 void CPlayer_Origin::Initialize()
 {
 	m_pBackMontion = L"Player";
-	m_tInfo = { SCALE_X* 0.5f + 1500.f,SCALE_Y * 0.5f,32.f,35.f };
+	m_tInfo = { SCALE_X* 0.5f ,SCALE_Y * 0.5f,32.f,35.f };
 	m_bJump = false;
 	m_fTime = 0.f;
 

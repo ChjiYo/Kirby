@@ -65,50 +65,16 @@ bool CCollisionMgr::Collision_Sphere(list<CObj*> _Dst, list<CObj*> _Src)
 	return false;
 }
 
-bool CCollisionMgr::SetPlayerInhal_Check(list<CObj*> _pPlayer, list<CObj*> _pMonster)
-{
-	for (auto& Player : _pPlayer)
-	{
-		for (auto& Monster : _pMonster)
-		{
-			if (Check_Sphere(Player, Monster))
-			{
-				Monster->SetDead();
-				MONID MonsterID = dynamic_cast<CMonster*>(Monster)->GetID();
-
-				switch (MonsterID)
-				{
-				case MON_NONE:
-					dynamic_cast<CPlayer*>(Player)->SetID(MON_NONE);
-					return true;
-				case MON_SPARKY:
-					dynamic_cast<CPlayer*>(Player)->SetID(MON_SPARKY);
-					return true;
-				case MON_GUNTER:
-					dynamic_cast<CPlayer*>(Player)->SetID(MON_GUNTER);
-					return true;
-
-				case MON_SLEEPY:
-					dynamic_cast<CPlayer*>(Player)->SetID(MON_SLEEPY);
-					return true;
-				}
-
-			}
-		}
-	}
-	return false;
-}
-
 bool CCollisionMgr::ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID)
 {
 	list<CObj*> pFirstObjList = CObjMgr::GetInst().GetObjectList(_eFirstID);
 	list<CObj*> pSecondObjList = CObjMgr::GetInst().GetObjectList(_eSecondID);
 
-	for (auto& Player : pFirstObjList)
+	for (auto& pFirst : pFirstObjList)
 	{
-		for (auto& Monster : pSecondObjList)
+		for (auto& pSecond : pSecondObjList)
 		{
-			if (Check_Sphere(Player, Monster))
+			if (Check_Sphere(pFirst, pSecond))
 			{
 				return true;
 			}
@@ -118,21 +84,23 @@ bool CCollisionMgr::ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID)
 	return false;
 }
 
-
-bool CCollisionMgr::ObjectCollisionCheck(list<CObj*> _pPlayer, list<CObj*> _pMonster)
+CObj* CCollisionMgr::FindCollObject(OBJID _eFirstID, OBJID _eFindID)
 {
-	for (auto& Player : _pPlayer)
+	list<CObj*> pFirstObjList = CObjMgr::GetInst().GetObjectList(_eFirstID);
+	list<CObj*> pFindObjList = CObjMgr::GetInst().GetObjectList(_eFindID);
+
+	for (auto& pFirst : pFirstObjList)
 	{
-		for (auto& Monster : _pMonster)
+		for (auto& pFind : pFindObjList)
 		{
-			if (Check_Sphere(Player, Monster))
+			if (Check_Sphere(pFirst, pFind))
 			{
-				return true;
+				return pFind;
 			}
 		}
 	}
 
-	return false;
+	return nullptr;
 }
 
 int CCollisionMgr::InvenCollisionCheck(list<CObj*> _pMouse, list<CObj*> _pItem )
