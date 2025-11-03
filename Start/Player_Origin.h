@@ -15,8 +15,6 @@ protected:
 public:
 	bool GetInhalKey() { return m_szInhalKeyCheck; }
 
-	bool GetWater() { return m_bWater; }
-
 private:
 	void BindAction_INHAL();
 	void BindAction_TRANSFORM();
@@ -45,7 +43,6 @@ private:
 	bool m_szInhalKeyCheck;
 	bool m_bWater;
 	bool m_bInhalCheck;
-
 	float m_fInhalTimer;
 
 

@@ -108,10 +108,6 @@ void CPlayer::Jump()
 
 	bool bLineCol = CLineMgr::GetInst().Collision_Line(m_tInfo.fX, m_tInfo.fY, &fX, &fY);
 
-	bool isStage = CStageMgr::GetInst().GetCurStage() == STAGE_A3;
-	bool isWaterRange = (m_tInfo.fX < 2500.f && m_tInfo.fX > 1870.f) && m_tInfo.fY > 340.f;
-	bool isWater = isStage && isWaterRange;
-
 	if (m_bJump)
 	{
 		m_eCurState = JUMP;

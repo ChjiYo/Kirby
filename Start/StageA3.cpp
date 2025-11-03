@@ -11,6 +11,7 @@
 #include "Monster_Sleepy.h"
 
 #include "Player_Origin.h"
+#include "Player_Spark.h"
 #include "PlayerHp.h"
 
 #include "Wadle.h"
@@ -39,6 +40,9 @@ void CStageA3::SwimmingPool()
     bool bSwitch = fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 340.f;
 
     static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetSwimming(bSwitch);
+
+    if(fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 450.f)
+        static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->Set_PosY(-static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->GetSpeed());
 }
 
 

@@ -19,7 +19,6 @@
 CPlayer_Origin::CPlayer_Origin()
 {
 	m_szInhalKeyCheck = false;
-	m_bWater = false;
 	m_bInhalCheck = false;
 
 	m_fInhalTimer = 0.f;
@@ -54,13 +53,7 @@ void CPlayer_Origin::LRKey()
 
 void CPlayer_Origin::WaterMove()
 {
-
-	if (CStageMgr::GetInst().GetCurStage() == STAGE_A3 && (m_tInfo.fX < 2500.f && m_tInfo.fX > 1800.f) && m_tInfo.fY > 450.f)
-	{
-		m_tInfo.fY -= m_fSpeed;
-	}
-
-	if (CStageMgr::GetInst().GetCurStage() == STAGE_A3 && (m_tInfo.fX < 2500.f && m_tInfo.fX > 1850.f) && m_tInfo.fY > 340.f)
+	if (m_bSwimming)
 	{
 		if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
 		{
@@ -72,15 +65,11 @@ void CPlayer_Origin::WaterMove()
 		}
 		else if (CKeyMgr::GetInst().Key_Pressing(VK_UP))
 		{
-			m_bWater = true;
-
 			m_tInfo.fY -= m_fSpeed;
 			m_eCurState = WATER_UP;
 		}
 		else if (CKeyMgr::GetInst().Key_Pressing(VK_DOWN))
 		{
-			m_bWater = true;
-
 			m_tInfo.fY += m_fSpeed;
 			m_eCurState = WATER_DOWN;
 		}
@@ -88,10 +77,6 @@ void CPlayer_Origin::WaterMove()
 		{
 			m_eCurState = WATER_IDLE;
 		}
-	}
-	else
-	{
-		m_bWater = false;
 	}
 }
 
