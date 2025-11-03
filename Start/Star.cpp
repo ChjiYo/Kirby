@@ -31,13 +31,13 @@ void CStar::DamageHit()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
 		m_bDead = true;
 	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-m_iDamage);
 		m_bDead = true;
 	}
 }
@@ -94,11 +94,11 @@ int CStar::Update()
 	m_tInfo.fX += m_fSpeed * (float)cos(m_fAngle * (PI / 180.f));
 	m_tInfo.fY -= m_fSpeed * (float)sin(m_fAngle * (PI / 180.f));
 
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'L')
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'L')
 	{
 		m_pFrameKey = L"Effect_Star";
 	}
-	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'R')
+	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'R')
 	{
 		m_pFrameKey = L"Effect_Star";
 	}
@@ -112,7 +112,7 @@ void CStar::LateUpdate()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-1);
 		m_bDead = true;
 	}
 	//if (CCollisionMgr::GetInst().Collision_Sphere(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
@@ -122,8 +122,8 @@ void CStar::LateUpdate()
 
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 
-	float PlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
-	float PlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY;
+	float PlayerPosX = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX;
+	float PlayerPosY = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY;
 
 	DamageHit();
 	Distory();

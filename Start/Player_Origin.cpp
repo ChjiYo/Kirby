@@ -193,22 +193,22 @@ void CPlayer_Origin::BindAction_TRANSFORM()
 			break;
 
 		case MON_SPARKY:
-			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Spark>::Create(m_tInfo.fX, m_tInfo.fY));
 			break;
 
 		case MON_GUNTER:
-			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Ice>::Create(m_tInfo.fX, m_tInfo.fY));
 			break;
 
 		case MON_SLEEPY:
-			CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Sleepy>::Create(m_tInfo.fX, m_tInfo.fY));
 			break;
 		}
-		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetHpInput(m_iNowHp);
-		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetMoneyInput(m_iNowMoney);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHpInput(m_iNowHp);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoneyInput(m_iNowMoney);
 
 		m_fInhalTimer = 0.f;
 	}

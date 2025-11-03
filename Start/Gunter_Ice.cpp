@@ -20,13 +20,13 @@ void CGunter_Ice::DamageHit()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER) && m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
 	{
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
 	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER)&& m_dwDamageTimer + 500 < (DWORD)GetTickCount64())
 	{
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
 	}
 }
@@ -60,13 +60,13 @@ int CGunter_Ice::Update()
 	if (m_bDead)
 		return OBJ_DISTORY;
 
-	if (CObjMgr::GetInst().GetMonsterInfo()->GetSpeed() > 0.f)
+	if (CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->GetSpeed() > 0.f)
 	{
 		m_pFrameKey = L"Effect_Gunter_LEFT";
 	
 
 	}
-	else if(CObjMgr::GetInst().GetMonsterInfo()->GetSpeed() <= 0.f)
+	else if(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->GetSpeed() <= 0.f)
 	{
 		m_pFrameKey = L"Effect_Gunter_RIGHT";
 		
@@ -86,7 +86,7 @@ void CGunter_Ice::LateUpdate()
 
 	/*if (CCollisionMgr::GetInst().SetCharacherHpCheck(CObjMgr::GetInst().GetPlayerList(), CObjMgr::GetInst().GetMonAttackList()))
 	{
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp();
+		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp();
 	}*/
 	DamageHit();
 	__super::MoveFrame();

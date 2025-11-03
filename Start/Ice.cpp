@@ -27,18 +27,18 @@ void CIce::DamageHit()
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_MONSTER, OBJ_MONSTER) && m_dwDamageTimer + 200 < (DWORD)GetTickCount64())
 	{
- 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
+ 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
 
-		if (dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->GetHp() <= 0)
+		if (dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->GetHp() <= 0)
 		{
-			CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CIce_Block>::Create(CObjMgr::GetInst().GetMonsterInfo()->GetInfo().fX, CObjMgr::GetInst().GetMonsterInfo()->GetInfo().fY));
+			CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CIce_Block>::Create(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->GetInfo().fX, CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->GetInfo().fY));
 		}
 	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER) && (m_dwDamageTimer + 200 < (DWORD)GetTickCount64()))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
 		m_dwDamageTimer = (DWORD)GetTickCount64();
 	}
 

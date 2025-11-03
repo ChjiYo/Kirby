@@ -85,12 +85,12 @@ void CRSP::ItemCreate()
 	switch(iResult)
 	{
 	case W:
-		CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - 100 , CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY));
-		dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_MEAT);
+		CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - 100 , CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY));
+		dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEM).back())->SetItemID(ITEM_MEAT);
 		break;
 
 	case L:
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
+		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
 		break;
 
 	case D:

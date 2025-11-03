@@ -34,10 +34,10 @@ void CStageMgr::StageChage(STAGEID eID)
 		CObjMgr::GetInst().Delete_ID(OBJ_ITEM);
 		CLineMgr::GetInst().Release();
 
-		if (!CObjMgr::GetInst().GetPetList().empty())
+		if (!CObjMgr::GetInst().GetObjectList(OBJ_PET).empty())
 		{
-			CObjMgr::GetInst().GetPetInfo()->SetObjPos(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - 50,
-				CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY);
+			CObjMgr::GetInst().GetObjectList(OBJ_PET).back()->SetObjPos(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - 50,
+				CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY);
 		}
 		
 		Safe_Delete(m_pStage);

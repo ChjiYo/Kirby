@@ -208,7 +208,7 @@ void CPlayer::Hit()
 
 		if (m_dwHitTimer + 800 < (DWORD)GetTickCount64() && m_bHitCheck)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
 			m_bHitCheck = false;
 			m_dwHitTimer = (DWORD)GetTickCount64();
 		}
@@ -237,7 +237,7 @@ void CPlayer::Hit()
 
 		if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64() && m_bHitCheck)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
 			m_bHitCheck = false;
 			m_dwEpicHitTimer = (DWORD)GetTickCount64();
 		}
@@ -247,7 +247,7 @@ void CPlayer::Hit()
 	{
 		if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER))
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(-4);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
 		}
 		m_dwEpicHitTimer = (DWORD)GetTickCount64();
 	}
@@ -284,7 +284,7 @@ void CPlayer::Tackle()
 
 		if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_MONSTER))
 		{
-			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
+			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-1);
 		}
 	}
 	else
@@ -423,8 +423,8 @@ void CPlayer::BindAction_ATTACK()
 void CPlayer::BindAction_ITEM()
 {
 	//Using Item
-	CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX, 0));
-	dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
+	CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX, 0));
+	dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEM).back())->SetItemID(ITEM_TOMATO);
 }
 
 void CPlayer::BindPressing(int _iKey)

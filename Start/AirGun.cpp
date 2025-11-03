@@ -52,11 +52,11 @@ int CAirGun::Update()
 	m_tInfo.fX += m_fSpeed * (float)(cos(m_fAngle * (PI / 180.f)));
 	m_tInfo.fY -= m_fSpeed * (float)(sin(m_fAngle * (PI / 180.f)));
 
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'L')
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'L')
 	{
 		m_pFrameKey = L"AirGun_LEFT";
 	}
-	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'R')
+	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'R')
 	{
 		m_pFrameKey = L"AirGun_RIGHT";
 	}
@@ -70,8 +70,8 @@ void CAirGun::LateUpdate()
 {
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 
-	float PlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
-	float PlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY;
+	float PlayerPosX = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX;
+	float PlayerPosY = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY;
 
 	if (m_tFrame.iFrameStart == m_tFrame.iFrameEnd)
 		m_bDead = true;

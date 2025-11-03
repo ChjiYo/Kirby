@@ -31,7 +31,7 @@ void CNPC_Kawasaki::Inter()
 	}
 	else if (CKeyMgr::GetInst().Key_Down('O'))
 	{
-		CObjMgr::GetInst().GetUIInfo()->SetDead();
+		CObjMgr::GetInst().GetObjectList(OBJ_UI).back()->SetDead();
 	}
 }
 

@@ -49,7 +49,7 @@ void CStageA1::Initialize()
 	CScrollMgr::GetInst().SetScrollY();
 
 	//CObjMgr::GetInst().Delete_ID(OBJ_UI);
-	CObjMgr::GetInst().GetUIInfo()->SetDead();
+	CObjMgr::GetInst().GetObjectList(OBJ_UI).back()->SetDead();
 
 	CLineMgr::GetInst().Load_Line();
 
@@ -72,7 +72,7 @@ void CStageA1::Initialize()
 
 	//CObjMgr::GetInst().Add_Create(OBJ_NPC, CFactory<CNPC_Mario>::Create(800.f, 400.f));
 
-	m_iSize = CObjMgr::GetInst().GetMonsterList().size();
+	m_iSize = CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).size();
 
 	//CSoundMgr::GetInst().PlayBGM(L"Normal.wav", m_fVolume);
 }
@@ -115,7 +115,7 @@ void CStageA1::Render(HDC _hDC)
 
 	/*TCHAR		szHp[64] = L"";
 
-	swprintf_s(szHp, L"Candy : %d " , dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetMoney());
+	swprintf_s(szHp, L"Candy : %d " , dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney());
 	TextOut(_hDC, 400, 100, szHp, lstrlen(szHp));*/
 }
 

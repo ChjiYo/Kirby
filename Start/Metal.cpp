@@ -19,7 +19,7 @@ void CMetal::Inter()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_NPC, OBJ_PLAYER) && CKeyMgr::GetInst().Key_Down('Y'))
 	{
-		dynamic_cast<CQuest*>(CObjMgr::GetInst().GetUIInfo())->SetQuest();
+		dynamic_cast<CQuest*>(CObjMgr::GetInst().GetObjectList(OBJ_UI).back())->SetQuest();
 	}
 }
 

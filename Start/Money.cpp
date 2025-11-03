@@ -56,7 +56,7 @@ void CMoney::Render(HDC _hDC)
 
 		TCHAR		szHp[64] = L"";
 		
-		swprintf_s(szHp, L"%d",dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetMoney());
+		swprintf_s(szHp, L"%d",dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney());
 		TextOut(_hDC, 100, 60, szHp, lstrlen(szHp));
 }
 

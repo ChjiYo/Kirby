@@ -21,7 +21,7 @@ CMonster_Sleepy::~CMonster_Sleepy()
 
 void CMonster_Sleepy::Move()
 {
-	m_fDistance = abs(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	m_fDistance = abs(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
 	if (m_fDistance <= 200 && m_tFrame.iFrameStart != m_tFrame.iFrameEnd)
 	{

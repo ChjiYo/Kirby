@@ -66,7 +66,7 @@ int CItem_Now::Update()
 void CItem_Now::LateUpdate()
 {
 	
-	int iFullHp = 20 - dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp();
+	int iFullHp = 20 - dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ITEM, OBJ_PLAYER))
 	{
@@ -74,24 +74,24 @@ void CItem_Now::LateUpdate()
 
 		if (m_eItemID == ITEM_MEAT)
 		{
-			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp())
+			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp())
 			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(iFullHp);
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
 			}
 			else
 			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(4);
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(4);
 			}
 			
 			
 		}
 		else if (m_eItemID == ITEM_TOMATO)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(iFullHp);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
 		}
 		else if (m_eItemID == ITEM_CANDY)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetMoney(9999);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoney(9999);
 		}
 
 		m_bDead = true;
@@ -103,24 +103,24 @@ void CItem_Now::LateUpdate()
 	{
 		if (m_eItemID == ITEM_MEAT)
 		{
-			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp())
+			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp())
 			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(iFullHp);
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
 			}
 			else
 			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(4);
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(4);
 			}
 
 
 		}
 		else if (m_eItemID == ITEM_TOMATO)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetHp(iFullHp);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
 		}
 		else if (m_eItemID == ITEM_CANDY)
 		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->SetMoney(9999);
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoney(9999);
 		}
 	}
 

@@ -72,7 +72,7 @@ int CAbility::Update()
 
 void CAbility::LateUpdate()
 {
-	switch (dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->GetPlayerID())
+	switch (dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetPlayerID())
 	{
 	case PLAYER_CLASIC:
 		m_eCurState = CLASIC;

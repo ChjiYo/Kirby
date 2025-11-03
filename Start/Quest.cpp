@@ -23,7 +23,7 @@ void CQuest::KillQuest()
 {
 	if (m_bQuestAccept)
 	{
-		for (auto iter : CObjMgr::GetInst().GetMonsterList())
+		for (auto iter : CObjMgr::GetInst().GetObjectList(OBJ_MONSTER))
 		{
 			if (iter->GetDead())
 			{
@@ -80,8 +80,8 @@ void CQuest::Render(HDC _hDC)
 		if (!m_bCreateCheck)
 		{
 			m_dwClearMsgTimer = (DWORD)GetTickCount64();
-			CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX, 0));
-			dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_TOMATO);
+			CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX, 0));
+			dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEM).back())->SetItemID(ITEM_TOMATO);
 			m_bCreateCheck = true;
 		}
 

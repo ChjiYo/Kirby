@@ -62,13 +62,13 @@ void CDDDKing::Land()
 
 void CDDDKing::Move()
 {
-	if (m_tInfo.fX < CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX )
+	if (m_tInfo.fX < CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX )
 	{
 		m_tInfo.fX += m_fSpeed;
 		m_pFrameKey = L"DDDKING_RIGHT";
 	}
 
-	else if(m_tInfo.fX > CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX )
+	else if(m_tInfo.fX > CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX )
 	{
 		m_tInfo.fX -= m_fSpeed;
 		m_pFrameKey = L"DDDKING_LEFT";
@@ -102,7 +102,7 @@ void CDDDKing::AttackB()
 		m_eCurState = ABILITY;
 
 		for (int i = 1; i <= 5; i++)
-			CObjMgr::GetInst().Add_Create(OBJ_MONATTACK, CFactory<CHammer>::Create(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX -600 + i * 200 , 100));
+			CObjMgr::GetInst().Add_Create(OBJ_MONATTACK, CFactory<CHammer>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX -600 + i * 200 , 100));
 		
 		m_dwAttackTimerB = (DWORD)GetTickCount64();
 	}
@@ -211,7 +211,7 @@ int CDDDKing::Update()
 	if(m_bDead)
 		return OBJ_DISTORY;
 
-	m_fDistance = abs(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	m_fDistance = abs(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
 	if (m_dwWaitTimer + 1500 < (DWORD)GetTickCount64())
 	{

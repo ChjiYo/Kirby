@@ -33,22 +33,22 @@ void CMonster::Hit()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetAttackInfo())->GetDamage()));
-		//CObjMgr::GetInst().GetAttackInfo()->SetDead();
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetObjectList(OBJ_ATTACK).back())->GetDamage()));
+		//CObjMgr::GetInst().GetObjectList(OBJ_ATTACK).back()->SetDead();
 	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetAttackInfo())->GetDamage()));
-		//CObjMgr::GetInst().GetAttackInfo()->SetDead();
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-(dynamic_cast<CAttack*>(CObjMgr::GetInst().GetObjectList(OBJ_ATTACK).back())->GetDamage()));
+		//CObjMgr::GetInst().GetObjectList(OBJ_ATTACK).back()->SetDead();
 	}
 }
 
 bool CMonster::Inhal()
 {
-	float fDistance = abs(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	float fDistance = abs(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetInhal() && fDistance < 200.f)
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetInhal() && fDistance < 200.f)
 	{
 		m_bInhalMoveStop = true;
 		
@@ -68,7 +68,7 @@ bool CMonster::Inhal()
 
 			m_fAngle = m_fRadian * (180.f / PI);
 
-			CObjMgr::GetInst().GetMonsterInfo()->SetAngle(m_fAngle);
+			CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->SetAngle(m_fAngle);
 		
 		}
 		m_tInfo.fX += m_fInhalSpeed * (float)cos(m_fAngle * (PI / 180.f));
@@ -88,9 +88,9 @@ bool CMonster::Inhal()
 
 bool CMonster::Inhal()
 {
-	float fDistance = abs(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	float fDistance = abs(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetInhal() && fDistance < 140.f)
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetInhal() && fDistance < 140.f)
 	{
 		m_pTarget = CObjMgr::GetInst().Get_Target(OBJ_MONSTER, this);
 
@@ -109,7 +109,7 @@ bool CMonster::Inhal()
 
 			m_fAngle = m_fRadian * (180.f / PI);
 
-			CObjMgr::GetInst().GetMonsterInfo()->SetAngle(m_fAngle);
+			CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back()->SetAngle(m_fAngle);
 			m_tInfo.fX += m_fInhalSpeed * cos(m_fAngle * (PI / 180.f));
 			m_tInfo.fY -= m_fInhalSpeed * sin(m_fAngle * (PI / 180.f));
 		}

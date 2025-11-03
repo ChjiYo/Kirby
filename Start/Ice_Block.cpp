@@ -41,11 +41,11 @@ void CIce_Block::Touch()
 	if (m_bTouch)
 	{
 
-		if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'R')
+		if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'R')
 		{
 			m_tInfo.fX += m_fSpeed;
 		}
-		else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'L')
+		else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'L')
 		{
 			m_tInfo.fX -= m_fSpeed;
 		}

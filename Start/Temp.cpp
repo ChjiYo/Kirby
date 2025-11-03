@@ -45,8 +45,8 @@ void CTemp::Render(HDC _hDC)
 
 	GdiTransparentBlt(
 		_hDC,
-		(int)CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX + 200 ,
-		(int)CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY,
+		(int)CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX + 200 ,
+		(int)CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY,
 		TEMP_CX,
 		TEMP_CY,
 		hMemDC,

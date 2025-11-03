@@ -45,11 +45,11 @@ void CPet_Goust::Move()
 
 void CPet_Goust::Dir()
 {
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'L')
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'L')
 	{
 		m_pFrameKey = L"Pet_Goust_LEFT";
 	}
-	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'R')
+	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'R')
 	{
 		m_pFrameKey = L"Pet_Goust_RIGHT";
 	}
@@ -83,7 +83,7 @@ int CPet_Goust::Update()
 	if (m_bDead)
 		return OBJ_DISTORY;
 
-	m_fDistance = abs(CObjMgr::CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	m_fDistance = abs(CObjMgr::CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
 	if (m_fDistance <= 10)
 	{

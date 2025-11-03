@@ -36,7 +36,7 @@ void CPlayerHp::Initialize()
 
 int CPlayerHp::Update()
 {
-	m_iPlayerHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp();
+	m_iPlayerHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
 	
 	return 0;
 }

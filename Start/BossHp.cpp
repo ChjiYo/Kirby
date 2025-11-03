@@ -32,7 +32,7 @@ void CBossHp::Initialize()
 
 int CBossHp::Update()
 {
-	m_iBossHp = dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->GetHp();
+	m_iBossHp = dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->GetHp();
 
 	__super::RectUpdate();
 	return OBJ_NOEVENT;

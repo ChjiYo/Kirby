@@ -81,7 +81,7 @@ void CAbilityStar::Initialize()
 	m_fAttackRange = 100.f;
 
 	m_iDamage = 1;
-	m_MonStarID = dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->GetID();
+	m_MonStarID = dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->GetID();
 }
 
 int CAbilityStar::Update()
@@ -89,11 +89,11 @@ int CAbilityStar::Update()
 	if(m_bDead)
 	return OBJ_DISTORY;
 
-	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'L')
+	if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'L')
 	{
 		m_pFrameKey = L"Effect_Star";
 	}
-	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetDir() == 'R')
+	else if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetDir() == 'R')
 	{
 		m_pFrameKey = L"Effect_Star";
 	}

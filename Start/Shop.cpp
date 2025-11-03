@@ -29,13 +29,13 @@ void CShop::Initialize()
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 	
 	CObjMgr::GetInst().Add_Create(OBJ_ITEMLIST, CFactory<CShop_Item>::Create((float)(m_iStartX + 50), (float)(m_iStartY + 175)));
-	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetItemListInfo())->SetItemID(ITEM_MEAT);
+	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEMLIST).back())->SetItemID(ITEM_MEAT);
 
 	CObjMgr::GetInst().Add_Create(OBJ_ITEMLIST, CFactory<CShop_Item>::Create((float)(m_iStartX+ 50 ), (float)(m_iStartY + 215)));
-	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetItemListInfo())->SetItemID(ITEM_PET_GOUSE);
+	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEMLIST).back())->SetItemID(ITEM_PET_GOUSE);
 
 	CObjMgr::GetInst().Add_Create(OBJ_ITEMLIST, CFactory<CShop_Item>::Create((float)(m_iStartX + 50), (float)(m_iStartY + 260)));
-	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetItemListInfo())->SetItemID(ITEM_TOMATO);
+	dynamic_cast<CShop_Item*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEMLIST).back())->SetItemID(ITEM_TOMATO);
 
 	m_eRender = RENDER_PRONTUI;
 }

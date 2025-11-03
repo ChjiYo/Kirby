@@ -21,7 +21,7 @@ void CPlayer_Sleepy::Move()
 	{
 		m_bDead = true;
 		CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Origin>::Create(m_tInfo.fX, m_tInfo.fY));
-		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetMoneyInput(m_iNowMoney);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoneyInput(m_iNowMoney);
 	}
 }
 
@@ -63,7 +63,7 @@ int CPlayer_Sleepy::Update()
 	if (m_bDead)
 		return OBJ_DISTORY;
 
-	m_iNowMoney = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetMoney();
+	m_iNowMoney = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney();
 
 	__super::RectUpdate();
 

@@ -117,7 +117,7 @@ void CMonster_Gunter::LateUpdate()
 	{
 		m_bDead = true;
 	}
-	m_fDistance = abs(CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX - m_tInfo.fX);
+	m_fDistance = abs(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - m_tInfo.fX);
 
 	MotionChage();
 	if(!m_bMoveStop)
@@ -228,13 +228,13 @@ void CMonster_Gunter::Atttack()
 
 		if (m_dwAttackTimer + 800 < (DWORD)GetTickCount64())
 		{
-			if (CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX < m_tInfo.fX)
+			if (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX < m_tInfo.fX)
 			{
 				m_pFrameKey = L"Mon_Gunter_Left";
 				CObjMgr::GetInst().Add_Create(OBJ_MONATTACK, CFactory<CGunter_Ice>::Create(m_tInfo.fX - 80, m_tInfo.fY, -90.f));
 
 			}
-			else if (CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX > m_tInfo.fX)
+			else if (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX > m_tInfo.fX)
 			{
 				m_pFrameKey = L"Mon_Gunter_Right";
 				CObjMgr::GetInst().Add_Create(OBJ_MONATTACK, CFactory<CGunter_Ice>::Create(m_tInfo.fX + 80, m_tInfo.fY, -90.f));

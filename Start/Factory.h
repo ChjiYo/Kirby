@@ -55,7 +55,7 @@ public:
 	{
 		CObj* pObj = new T;
 		pObj->Initialize();
-		CObjMgr::GetInst().GetPlayerInfo()->SetPlayerChange(pObj);
+		CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetPlayerChange(pObj);
 		return pObj;
 	}
 };

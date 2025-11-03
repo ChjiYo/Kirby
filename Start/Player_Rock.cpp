@@ -143,7 +143,7 @@ int CPlayer_Rock::Update()
 	if (m_bDead)
 		return OBJ_DISTORY;
 
-	m_iNowHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp();
+	m_iNowHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
 
 	KeyInput();
 	LRKey();

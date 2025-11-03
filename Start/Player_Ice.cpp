@@ -56,11 +56,11 @@ void CPlayer_Ice::LRKey()
 	}
 	else if (CKeyMgr::GetInst().Key_Pressing('A'))
 	{
-		CObjMgr::GetInst().GetPlayerInfo()->SetDead();
+		CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 		CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Origin>::Create(m_tInfo.fX, m_tInfo.fY));
 		CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CExplosion>::Create(m_tInfo.fX, m_tInfo.fY));
-		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetHpInput(m_iNowHp);
-		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetMoneyInput(m_iNowMoney);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHpInput(m_iNowHp);
+		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoneyInput(m_iNowMoney);
 	}
 }
 
@@ -160,8 +160,8 @@ int CPlayer_Ice::Update()
 	if (m_bDead)
 		return OBJ_DISTORY;
 
-	m_iNowHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp();
-	m_iNowMoney = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetMoney();
+	m_iNowHp = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
+	m_iNowMoney = dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney();
 
 	__super::RectUpdate();
 

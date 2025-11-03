@@ -34,15 +34,15 @@ CStageA3::~CStageA3()
 
 void CStageA3::SwimmingPool()
 {
-    float fPlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
-    float fPlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY;
+    float fPlayerPosX = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX;
+    float fPlayerPosY = CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY;
 
     bool bSwitch = fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 340.f;
 
-    static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->SetSwimming(bSwitch);
+    static_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetSwimming(bSwitch);
 
     if(fPlayerPosX < 2500.f && fPlayerPosX > 1870.f && fPlayerPosY > 450.f)
-        static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->Set_PosY(-static_cast<CPlayer*> (CObjMgr::GetInst().GetPlayerInfo())->GetSpeed());
+        static_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->Set_PosY(-static_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetSpeed());
 }
 
 
@@ -69,7 +69,7 @@ void CStageA3::Initialize()
     CObjMgr::GetInst().Add_Create(OBJ_MONSTER, CFactory<CMonster_Gunter>::Create(4000.f, 170.f));
 
     CObjMgr::GetInst().Add_Create(OBJ_ITEM, CFactory<CItem_Now>::Create(600.f , 140.f));
-    dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetItemInfo())->SetItemID(ITEM_CANDY);
+    dynamic_cast<CItem_Now*>(CObjMgr::GetInst().GetObjectList(OBJ_ITEM).back())->SetItemID(ITEM_CANDY);
 
     //4170 , 170
     //1310 , 300
@@ -114,7 +114,7 @@ void CStageA3::Render(HDC _hDC)
 
     /*TCHAR		szHp[64] = L"";
 
-    swprintf_s(szHp, L"Candy : %d ", dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetMoney());
+    swprintf_s(szHp, L"Candy : %d ", dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney());
     TextOut(_hDC, 400, 100, szHp, lstrlen(szHp));*/
   
     CObjMgr::GetInst().Render(_hDC);

@@ -24,16 +24,16 @@ void CSpark::DamageHit()
 {
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
 	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
+		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->SetHp(-m_iDamage);
 
-		if (dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->GetHp() <= 0)
+		if (dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->GetHp() <= 0)
 		{
-			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->KillCount();
+			dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).back())->KillCount();
 	
 		}
 

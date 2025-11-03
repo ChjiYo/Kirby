@@ -26,7 +26,7 @@ void CNPC_Mario::Inter()
 	}
 	else if (CKeyMgr::GetInst().Key_Down('O'))
 	{
-		CObjMgr::GetInst().GetUIInfo()->SetDead();
+		CObjMgr::GetInst().GetObjectList(OBJ_UI).back()->SetDead();
 		CObjMgr::GetInst().Delete_ID(OBJ_ITEMLIST);
 	}
 }
