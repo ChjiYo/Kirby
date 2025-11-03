@@ -10,7 +10,11 @@ public:
 	~CWadle();
 
 public:
-	virtual void SetHp(int m_iDamage) { m_iHp += m_iDamage; }
+	virtual void SetHp(int m_iDamage) 
+	{
+		m_iHp += m_iDamage; 
+		int iDebug(0);
+	}
 	virtual void Move();
 	virtual void KillCount() { m_iKillCount++; }
 	void Land();

@@ -16,10 +16,10 @@ public:
 		return Inst;
 	}
 
-public:
-	 bool Collision_Rect(list<CObj*> _Dst, list<CObj*> _Src);
-
+private:
 	 bool Check_Sphere(CObj* pDst, CObj* pSrc);
+
+public:
 	 bool	Collision_Sphere(list<CObj*> _Dst, list<CObj*> _Src);
 
 	 bool ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID);

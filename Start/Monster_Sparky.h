@@ -11,7 +11,11 @@ public:
 
 public:
 	void Jump();
-	virtual void SetHp(int m_iDamage) { m_iHp += m_iDamage; }
+	virtual void SetHp(int m_iDamage) 
+	{
+		m_iHp += m_iDamage; 
+		int iDebug(0);
+	}
 public:
 	virtual void MotionChage();
 	virtual void Initialize();
@@ -23,8 +27,7 @@ public:
 	virtual void Move();
 
 	virtual void SetState(STATE _eID) { m_eCurState = _eID; }
-	//virtual  void Hit() {};
-	//void SetHp(int _iDamage) { m_iHp -= _iDamage; }
+
 
 private:
 	float m_fPower;

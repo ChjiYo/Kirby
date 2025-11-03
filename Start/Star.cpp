@@ -110,11 +110,15 @@ int CStar::Update()
 
 void CStar::LateUpdate()
 {
-	if (CCollisionMgr::GetInst().Collision_Sphere(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{
 		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
 		m_bDead = true;
 	}
+	//if (CCollisionMgr::GetInst().Collision_Sphere(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
+	//{
+	//	
+	//}
 
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 

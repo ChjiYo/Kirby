@@ -10,34 +10,6 @@
 #include "Shop_Item.h"
 #include "ObjMgr.h"
 
-bool CCollisionMgr::Collision_Rect(list<CObj*> _Dst, list<CObj*> _Src)
-{
-	RECT	rc{};
-
-	for (auto& Dst : _Dst)
-	{
-		for (auto& Src : _Src)
-		{
-			int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
-			int iScrollY = (int)CScrollMgr::GetInst().GetScrollY();
-
-			RECT TempRect = Src->GetRect();
-			TempRect.left -= iScrollX;
-			TempRect.top-= iScrollY;
-			TempRect.right -= iScrollX;
-			TempRect.bottom -= iScrollY;
-
-			if(IntersectRect(&rc, &(Dst->GetRect()), &(TempRect)))
-			{
-				
-
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
 bool CCollisionMgr::Check_Sphere(CObj* pDst, CObj* pSrc)
 {
 	float	fWidth = abs(pDst->GetInfo().fX - pSrc->GetInfo().fX);

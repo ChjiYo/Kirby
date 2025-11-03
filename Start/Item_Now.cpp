@@ -98,10 +98,9 @@ void CItem_Now::LateUpdate()
 	}
 
 
-	if ( (CCollisionMgr::GetInst().Collision_Rect(CObjMgr::GetInst().GetItemListList(), CObjMgr::GetInst().GetMouseList())) && CKeyMgr::GetInst().Key_Down(VK_LBUTTON))
+	//Rect Coll -> Shape Coll
+	if ( (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ITEM, OBJ_MOUSE) && CKeyMgr::GetInst().Key_Down(VK_LBUTTON)))
 	{
-		//InvenCollisionCheck
-
 		if (m_eItemID == ITEM_MEAT)
 		{
 			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetPlayerInfo())->GetHp())

@@ -68,29 +68,17 @@ int CAirGun::Update()
 
 void CAirGun::LateUpdate()
 {
-	if (CCollisionMgr::GetInst().Collision_Sphere(CObjMgr::GetInst().GetAttackList(), CObjMgr::GetInst().GetMonsterList()))
-	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-1);
-	}
-
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 
 	float PlayerPosX = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fX;
 	float PlayerPosY = CObjMgr::GetInst().GetPlayerInfo()->GetInfo().fY;
 
-	//if (m_tInfo.fX >= PlayerPosX + m_fAttackRange || m_tInfo.fX <= PlayerPosX - m_fAttackRange /*|| m_dwDeltaTime + 1500 < (DWORD)GetTickCount64()*/)
-	//{
-	//	m_bDead = true;
-	//	m_dwDeltaTime = (DWORD)(GetTickCount64());
-	//}
-
 	if (m_tFrame.iFrameStart == m_tFrame.iFrameEnd)
-	{
 		m_bDead = true;
-	}
 
 	MotionChange();
 	DamageHit();
+
 	__super::MoveFrame();
 }
 
@@ -119,15 +107,20 @@ void CAirGun::Release()
 
 void CAirGun::DamageHit()
 {
-	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
+	CMonster* pMonster = dynamic_cast<CMonster*>(CCollisionMgr::GetInst().FindCollObject(OBJ_ATTACK, OBJ_MONSTER));
+
+	if (pMonster != nullptr)
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonEpickInfo())->SetHp(-m_iDamage);
+		pMonster->SetHp(-1);
 		m_bDead = true;
 	}
 
-	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
+
+	CMonster* pEpicMonster = dynamic_cast<CMonster*>(CCollisionMgr::GetInst().FindCollObject(OBJ_ATTACK, OBJ_SPECIAL_MONSTER));
+
+	if (pEpicMonster != nullptr)
 	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetMonsterInfo())->SetHp(-m_iDamage);
+		pEpicMonster->SetHp(-1);
 		m_bDead = true;
 	}
 }
