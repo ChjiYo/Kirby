@@ -24,6 +24,32 @@ CShop_Item::~CShop_Item()
 	Release();
 }
 
+int CShop_Item::ItemID()
+{
+	CShop_Item* pItem = dynamic_cast<CShop_Item*>(CCollisionMgr::GetInst().FindCollObject(OBJ_MOUSE, OBJ_ITEM));
+	if(pItem != nullptr)
+	{ 
+		ITEMID ItemID = dynamic_cast<CShop_Item*>(pItem)->GetItemID();
+
+		switch (ItemID)
+		{
+		case ITEM_MEAT:
+			m_iPrice = 100;
+			return ITEM_MEAT;
+
+		case ITEM_TOMATO:
+			m_iPrice = 200;
+			return ITEM_TOMATO;
+
+		case ITEM_PET_GOUSE:
+			m_iPrice = 300;
+			return ITEM_PET_GOUSE;
+		}
+	}
+
+	return -1;
+}
+
 void CShop_Item::Initialize()
 {
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Item/Item_Meat.bmp", L"Item_Meat");
@@ -53,7 +79,7 @@ void CShop_Item::LateUpdate()
 
 	if (CKeyMgr::GetInst().Key_Down(VK_LBUTTON))
 	{
-		int iItemNum = CCollisionMgr::GetInst().InvenCollisionCheck(CObjMgr::GetInst().GetObjectList(OBJ_MOUSE), CObjMgr::GetInst().GetObjectList(OBJ_ITEMLIST));
+		int iItemNum = ItemID();
 
 		switch (iItemNum)
 		{

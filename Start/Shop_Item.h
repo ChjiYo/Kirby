@@ -18,6 +18,9 @@ public:
 	int GetPrice() { return m_iPrice; }
 	void SetPrice(int _iPrice) { m_iPrice = _iPrice; }
 
+private:
+	int ItemID();
+
 public:
 	virtual void Initialize();
 	virtual int Update();

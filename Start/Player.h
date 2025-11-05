@@ -28,8 +28,6 @@ protected:
 	virtual void LRKey() PUSE;
 
 public:
-	void SetID(MONID _MonID) { m_eMonsterID = _MonID; }
-
 	char GetDir() { return m_szMoveDir; }
 
 	virtual void SetHp(int _iHp) { m_iHp += _iHp; }
