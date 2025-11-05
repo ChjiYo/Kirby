@@ -22,7 +22,5 @@ private:
 public:
 	 bool ObjectIDCollisionCheck(OBJID _eFirstID, OBJID _eSecondID);
 	 CObj* FindCollObject(OBJID _eFirstID, OBJID _eFindID);
-
-	 int InvenCollisionCheck(list<CObj*> _pMouse, list<CObj*> _pItem);
 };
 

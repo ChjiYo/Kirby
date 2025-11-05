@@ -59,38 +59,3 @@ CObj* CCollisionMgr::FindCollObject(OBJID _eFirstID, OBJID _eFindID)
 
 	return nullptr;
 }
-
-int CCollisionMgr::InvenCollisionCheck(list<CObj*> _pMouse, list<CObj*> _pItem )
-{
-	for (auto& Mouse : _pMouse)
-	{
-		for (auto& Item  : _pItem)
-		{
-			if (Check_Sphere(Mouse, Item))
-			{
-				ITEMID ItemID = dynamic_cast<CShop_Item*>(Item)->GetItemID();
-				int a = 10;
-				switch (ItemID)
-				{
-				case ITEM_MEAT:
-					//dynamic_cast<CShop_Item*>(Item)->SetItemID(ITEM_MEAT);
-					dynamic_cast<CShop_Item*>(Item)->SetPrice(100);
-					return ITEM_MEAT;
-
-				case ITEM_TOMATO:
-					//dynamic_cast<CShop_Item*>(Item)->SetItemID(ITEM_TOMATO);
-					dynamic_cast<CShop_Item*>(Item)->SetPrice(200);
-					return ITEM_TOMATO;
-
-				case ITEM_PET_GOUSE:
-					//dynamic_cast<CShop_Item*>(Item)->SetItemID(ITEM_PET_GOUSE);
-					dynamic_cast<CShop_Item*>(Item)->SetPrice(300);
-					return ITEM_PET_GOUSE;
-				}
-				
-			}
-		}
-	}
-
-	return 999;
-}

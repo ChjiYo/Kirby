@@ -10,16 +10,12 @@ public:
 	virtual ~CShop_Item();
 
 public:
-	ITEMID GetItemID() { return m_eItemID; }
 	virtual void SetItemID(ITEMID _eItemID) {
 		m_eItemID = _eItemID;
 	}
 
-	int GetPrice() { return m_iPrice; }
-	void SetPrice(int _iPrice) { m_iPrice = _iPrice; }
-
 private:
-	int ItemID();
+	void ClickBuy();
 
 public:
 	virtual void Initialize();

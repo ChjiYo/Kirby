@@ -24,30 +24,31 @@ CShop_Item::~CShop_Item()
 	Release();
 }
 
-int CShop_Item::ItemID()
+void CShop_Item::ClickBuy()
 {
-	CShop_Item* pItem = dynamic_cast<CShop_Item*>(CCollisionMgr::GetInst().FindCollObject(OBJ_MOUSE, OBJ_ITEM));
-	if(pItem != nullptr)
-	{ 
-		ITEMID ItemID = dynamic_cast<CShop_Item*>(pItem)->GetItemID();
+	int iFullHp = 20 - dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
 
-		switch (ItemID)
+	if (CKeyMgr::GetInst().Key_Down(VK_LBUTTON) && (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_MOUSE, OBJ_ITEMLIST)))
+	{
+		switch (m_eItemID)
 		{
 		case ITEM_MEAT:
-			m_iPrice = 100;
-			return ITEM_MEAT;
+			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp())
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
+			else
+				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(4);
+
+			break;
 
 		case ITEM_TOMATO:
-			m_iPrice = 200;
-			return ITEM_TOMATO;
+			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
+			break;
 
 		case ITEM_PET_GOUSE:
-			m_iPrice = 300;
-			return ITEM_PET_GOUSE;
+			CObjMgr::GetInst().Add_Create(OBJ_PET, CFactory<CPet_Goust>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - 100, CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY));
+			break;
 		}
 	}
-
-	return -1;
 }
 
 void CShop_Item::Initialize()
@@ -74,78 +75,9 @@ int CShop_Item::Update()
 
 void CShop_Item::LateUpdate()
 {
-	int iFullHp = 20 - dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp();
 	int iScrollX = (int)CScrollMgr::GetInst().GetScrollX();
 
-	if (CKeyMgr::GetInst().Key_Down(VK_LBUTTON))
-	{
-		int iItemNum = ItemID();
-
-		switch (iItemNum)
-		{
-		case ITEM_MEAT:
-			m_iPrice = 100;
-
-			if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney() >= m_iPrice)
-			{
-
-				if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp())
-				{
-					dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
-				}
-				else
-				{
-					dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(4);
-				}
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoney(-100);
-			}
-			break;
-
-		case ITEM_TOMATO:
-			m_iPrice = 200;
-
-			if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney() >= m_iPrice)
-			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoney(-200);
-			}
-			break;
-
-		case ITEM_PET_GOUSE:
-			m_iPrice = 300;
-
-			if (dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetMoney() >= m_iPrice)
-			{
-				CObjMgr::GetInst().Add_Create(OBJ_PET, CFactory<CPet_Goust>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - 100, CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY));
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetMoney(-300);
-			}
-			break;
-
-		}
-	}
-
-	/*if (((CKeyMgr::GetInst().Key_Down(VK_LBUTTON) && ( CCollisionMgr::GetInst().ObjectCollisionCheck(CObjMgr::GetInst().GetMouseList(), CObjMgr::GetInst().GetItemListList())))))
-	{
-		if ( m_eItemID == ITEM_MEAT)
-		{
-			if (16 < dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->GetHp())
-			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
-			}
-			else
-			{
-				dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(4);
-			}
-		}
-		else if (m_eItemID == ITEM_TOMATO)
-		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(iFullHp);
-		}
-		else if (m_eItemID == ITEM_PET_GOUSE)
-		{
-			CObjMgr::GetInst().Add_Create(OBJ_PET, CFactory<CPet_Goust>::Create(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fX - 100 , CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->GetInfo().fY));
-		}
-	}*/
+	ClickBuy();
 }
 
 void CShop_Item::Render(HDC _hDC)
