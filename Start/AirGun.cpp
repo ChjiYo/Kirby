@@ -114,13 +114,4 @@ void CAirGun::DamageHit()
 		pMonster->SetHp(-1);
 		m_bDead = true;
 	}
-
-
-	CMonster* pEpicMonster = dynamic_cast<CMonster*>(CCollisionMgr::GetInst().FindCollObject(OBJ_ATTACK, OBJ_SPECIAL_MONSTER));
-
-	if (pEpicMonster != nullptr)
-	{
-		pEpicMonster->SetHp(-1);
-		m_bDead = true;
-	}
 }

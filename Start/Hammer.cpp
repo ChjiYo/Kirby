@@ -22,11 +22,6 @@ void CHammer::MotionChange()
 
 void CHammer::DamageHit()
 {
-	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER))
-	{
-		dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
-		m_bDead = true;
-	}
 
 	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_MONSTER))
 	{

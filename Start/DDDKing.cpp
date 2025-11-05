@@ -254,7 +254,7 @@ void CDDDKing::LateUpdate()
 		Move();
 	}
 
-	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER))
+	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_MONSTER))
 	{
 		m_bMoveStop = true;
 	}

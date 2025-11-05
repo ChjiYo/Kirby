@@ -36,12 +36,6 @@ void CIce::DamageHit()
 		}
 	}
 
-	if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_ATTACK, OBJ_SPECIAL_MONSTER) && (m_dwDamageTimer + 200 < (DWORD)GetTickCount64()))
-	{
-		dynamic_cast<CMonster*>(CObjMgr::GetInst().GetObjectList(OBJ_SPECIAL_MONSTER).back())->SetHp(-m_iDamage);
-		m_dwDamageTimer = (DWORD)GetTickCount64();
-	}
-
 }
 
 void CIce::Initialize()

@@ -219,44 +219,6 @@ void CPlayer::Hit()
 		m_bHitCheck = false;
 		m_dwHitTimer = (DWORD)GetTickCount64();
 	}
-
-
-	//Epic
-
-	bool bCollEpicMon = CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER);
-	if (bCollEpicMon)
-	{
-		m_eCurState = HIT;
-		m_bHitCheck = true;
-
-		if (m_szMoveDir == 'R')
-			m_tInfo.fX -= m_fSpeed;
-
-		if (m_szMoveDir == 'L')
-			m_tInfo.fX += m_fSpeed;
-
-		if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64() && m_bHitCheck)
-		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
-			m_bHitCheck = false;
-			m_dwEpicHitTimer = (DWORD)GetTickCount64();
-		}
-	}
-
-	if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64())
-	{
-		if (CCollisionMgr::GetInst().ObjectIDCollisionCheck(OBJ_PLAYER, OBJ_SPECIAL_MONSTER))
-		{
-			dynamic_cast<CPlayer*>(CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHp(-4);
-		}
-		m_dwEpicHitTimer = (DWORD)GetTickCount64();
-	}
-
-	if (m_dwEpicHitTimer + 800 < (DWORD)GetTickCount64())
-	{
-		m_bHitCheck = false;
-		m_dwEpicHitTimer = (DWORD)GetTickCount64();
-	}
 }
 
 void CPlayer::Tackle()

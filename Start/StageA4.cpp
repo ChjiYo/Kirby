@@ -5,6 +5,7 @@
 #include "ObjMgr.h"
 
 #include "Factory.h"
+#include "Player_Origin.h"
 #include "Player_Ice.h"
 #include "DDDKing.h"
 
@@ -30,9 +31,9 @@ void CStageA4::Initialize()
 
     CBmpMgr::GetInst().InsertBmp(L"../Kirby/Map/BossStage/Map_BossRoom.bmp", L"Ground4");
     CBmpMgr::GetInst().InsertBmp(L"../Kirby/Back/Back_BossStage.bmp", L"Back_Ground4");
-    //CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Ice>::Create());
+    //CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Origin>::Create());
 
-    CObjMgr::GetInst().Add_Create(OBJ_SPECIAL_MONSTER, CFactory<CDDDKing>::Create(1250.f, 350.f));
+    CObjMgr::GetInst().Add_Create(OBJ_MONSTER, CFactory<CDDDKing>::Create(1250.f, 350.f));
     CObjMgr::GetInst().Add_Create(OBJ_UI, CFactory<CBossHp>::Create());
 
     CLineMgr::GetInst().Initialize();
