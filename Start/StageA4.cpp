@@ -41,8 +41,8 @@ void CStageA4::Initialize()
     CScrollMgr::GetInst().SetScrollX();
     CScrollMgr::GetInst().SetScrollY();
 
-    //CSoundMgr::GetInst().StopSound(SOUND_BGM);
-    //CSoundMgr::GetInst().PlayBGM(L"Boss.wav", m_fVolume);
+    CSoundMgr::GetInst().StopSound(SOUND_BGM);
+    CSoundMgr::GetInst().PlayBGM(L"Boss.wav", m_fVolume);
 }
 
 int CStageA4::Update()

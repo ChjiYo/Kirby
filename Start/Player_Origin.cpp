@@ -35,7 +35,7 @@ void CPlayer_Origin::LRKey()
 {
 	if (CKeyMgr::GetInst().Key_Pressing('Z') && !m_bInhalCheck)
 	{
-		//CSoundMgr::GetInst().PlaySoundW(L"04_Absorb.wav", SOUND_EFFECT, m_fVolume);
+		CSoundMgr::GetInst().PlaySoundW(L"04_Absorb.wav", SOUND_EFFECT, m_fVolume);
 
 		m_szInhalKeyCheck = true;
 		if (m_dwInhalTime + 500 <= (DWORD)GetTickCount64())

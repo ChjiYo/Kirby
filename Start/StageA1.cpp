@@ -74,7 +74,7 @@ void CStageA1::Initialize()
 
 	m_iSize = CObjMgr::GetInst().GetObjectList(OBJ_MONSTER).size();
 
-	//CSoundMgr::GetInst().PlayBGM(L"Normal.wav", m_fVolume);
+	CSoundMgr::GetInst().PlayBGM(L"Normal.wav", m_fVolume);
 }
 
 int CStageA1::Update()

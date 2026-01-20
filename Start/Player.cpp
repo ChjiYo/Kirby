@@ -270,7 +270,7 @@ void CPlayer::BindAxis_LEFT(STATE eTpye)
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
-		//CSoundMgr::GetInst().PlaySoundW(L"Walk.wav", SOUND_EFFECT, m_fVolume);
+		CSoundMgr::GetInst().PlaySoundW(L"Walk.wav", SOUND_EFFECT, m_fVolume);
 		m_bWalkTimer = (DWORD)GetTickCount64();
 	}
 }
@@ -289,7 +289,7 @@ void CPlayer::BindAxis_RIGHT(STATE eTpye)
 
 	if (!m_bJump && ((m_bWalkTimer + 250) < (DWORD)GetTickCount64()))
 	{
-		//CSoundMgr::GetInst().PlaySoundW(L"Walk.wav", SOUND_EFFECT, m_fVolume);
+		CSoundMgr::GetInst().PlaySoundW(L"Walk.wav", SOUND_EFFECT, m_fVolume);
 		m_bWalkTimer = (DWORD)GetTickCount64();
 	}
 }
@@ -314,14 +314,14 @@ void CPlayer::BindAction_JUMP()
 	m_bJump = true;
 	m_eCurState = JUMP;
 
-	//	if (iJumpCount > 1)
-	//	{
-	//		//CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
-	//	}
-	//	else
-	//	{
-	//		//CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
-	//	}
+		if (iJumpCount > 1)
+		{
+			CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
+		}
+		else
+		{
+			CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
+		}
 }
 
 void CPlayer::BindAction_TACKLE()
@@ -366,7 +366,7 @@ void CPlayer::BindAction_ATTACK()
 
 	if (m_bJump && iJumpCount > 1)
 	{
-		//CSoundMgr::GetInst().PlaySoundW(L"12_AirGun.wav", SOUND_EFFECT, m_fVolume);
+		CSoundMgr::GetInst().PlaySoundW(L"12_AirGun.wav", SOUND_EFFECT, m_fVolume);
 		m_eCurState = LAND_AIR;
 
 		if (m_szMoveDir == 'R')

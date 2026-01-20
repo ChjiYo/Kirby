@@ -20,7 +20,7 @@ CStage::~CStage()
 
 void CStage::Initialize()
 {
-   CStageMgr::GetInst().StageChage(STAGE_A4);
+   CStageMgr::GetInst().StageChage(STAGE_A1);
 }
     
 int CStage::Update()

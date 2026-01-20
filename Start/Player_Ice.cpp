@@ -39,7 +39,7 @@ void CPlayer_Ice::LRKey()
 	}
 	else if (CKeyMgr::GetInst().Key_Pressing('F'))
 	{
-		//CSoundMgr::GetInst().PlaySoundW(L"07_Ice.wav", SOUND_EFFECT, m_fVolume);
+		CSoundMgr::GetInst().PlaySoundW(L"07_Ice.wav", SOUND_EFFECT, m_fVolume);
 		if (m_dwAttackTimer + 100  <= (DWORD)GetTickCount64())
 		{
 			if(m_szMoveDir == 'L')

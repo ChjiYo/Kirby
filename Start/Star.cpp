@@ -53,7 +53,7 @@ void CStar::Distory()
 
 void CStar::Initialize()
 {
-	//CSoundMgr::GetInst().PlaySoundW(L"03_Star.wav", SOUND_EFFECT, m_fVolume);
+	CSoundMgr::GetInst().PlaySoundW(L"03_Star.wav", SOUND_EFFECT, m_fVolume);
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/Effect/Effect_Star/EffectStar.bmp", L"Effect_Star");
 
 	m_pFrameKey = L"Effect_Star";

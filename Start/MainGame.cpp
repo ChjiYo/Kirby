@@ -30,7 +30,7 @@ void MainGame::Initialize()
 
 	CBmpMgr::GetInst().InsertBmp(L"../Kirby/BackBuffer.bmp", L"Back");
 
-	//CSoundMgr::GetInst().Initialize();
+	CSoundMgr::GetInst().Initialize();
 	CSceneMgr::GetInst().Scene_Change(SC_LOGO);
 
 //#ifdef _DEBUG
