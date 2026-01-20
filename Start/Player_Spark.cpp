@@ -26,23 +26,7 @@ CPlayer_Spark::~CPlayer_Spark()
 
 void CPlayer_Spark::LRKey()
 {
-
-	if (CKeyMgr::GetInst().Key_Pressing(VK_LEFT))
-	{
-		m_tInfo.fX -= m_fSpeed;
-
-		m_pFrameKey = L"Player_Spark_LEFT";
-		m_eCurState = WALK;
-	}
-
-	else if (CKeyMgr::GetInst().Key_Pressing(VK_RIGHT))
-	{
-		m_tInfo.fX += m_fSpeed;
-		m_pFrameKey = L"Player_Spark_RIGHT";
-
-		m_eCurState = WALK;
-	}
-	else if (CKeyMgr::GetInst().Key_Pressing('F') )
+	if (CKeyMgr::GetInst().Key_Pressing('F') )
 	{
 			CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CSpark>::Create(m_tInfo.fX, m_tInfo.fY));
 			m_bAttackCheck = true;

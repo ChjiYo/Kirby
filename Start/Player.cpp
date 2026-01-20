@@ -146,7 +146,6 @@ void CPlayer::Jump()
 
 }
 
-
 void CPlayer::Land()
 {
 	float fX = 0.f;
@@ -314,14 +313,14 @@ void CPlayer::BindAction_JUMP()
 	m_bJump = true;
 	m_eCurState = JUMP;
 
-		if (iJumpCount > 1)
-		{
-			CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
-		}
-		else
-		{
-			CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
-		}
+	if (iJumpCount > 1)
+	{
+		CSoundMgr::GetInst().PlaySoundW(L"02_Fly.wav", SOUND_EFFECT, m_fVolume);
+	}
+	else
+	{
+		CSoundMgr::GetInst().PlaySoundW(L"01_Jump.wav", SOUND_EFFECT, m_fVolume);
+	}
 }
 
 void CPlayer::BindAction_TACKLE()
