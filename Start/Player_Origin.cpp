@@ -120,37 +120,15 @@ void CPlayer_Origin::InhalAnim(int _iKey)
 	}
 }
 
-bool CPlayer_Origin::InhalIDCheck()
+void CPlayer_Origin::InhalIDCheck()
 {
 	CMonster* pMonster = dynamic_cast<CMonster*>(CCollisionMgr::GetInst().FindCollObject(OBJ_PLAYER, OBJ_MONSTER));
 
 	if(pMonster != nullptr)
 	{
-		
 		pMonster->SetDead();
-		MONID eMonID = pMonster->GetID();
-
-		switch (eMonID)
-		{
-		case MON_NONE:
-			m_eMonsterID = MON_NONE;
-			return true;
-		case MON_SPARKY:
-
-			m_eMonsterID = MON_SPARKY;
-			return true;
-
-		case MON_GUNTER:
-			m_eMonsterID = MON_GUNTER;
-			return true;
-
-		case MON_SLEEPY:
-			m_eMonsterID = MON_SLEEPY;
-			return true;
-		}
+		m_eMonsterID = pMonster->GetID();
 	}
-
-	return false;
 }
 
 void CPlayer_Origin::KeyInput()
@@ -171,7 +149,7 @@ void CPlayer_Origin::BindAction_INHAL()
 	if (m_pTarget)
 		m_bInputKeyCheck = true;
 
-	m_bInhalCheck = InhalIDCheck();
+	InhalIDCheck();
 		
 }
 
@@ -183,28 +161,31 @@ void CPlayer_Origin::BindAction_TRANSFORM()
 
 	if (m_fInhalTimer >= 3.0f)
 	{
-		m_bInhalCheck = false;
 		CObjMgr::GetInst().Add_Create(OBJ_ATTACK, CFactory<CChange>::Create(m_tInfo.fX, m_tInfo.fY));
 		m_iNowHp = GetHp();
 		m_iNowMoney = GetMoney();
+
+		if(m_eMonsterID != MON_NONE)
+			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
+
 		switch (m_eMonsterID)
 		{
 		case MON_NONE:
 			break;
 
 		case MON_SPARKY:
-			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Spark>::Create(m_tInfo.fX, m_tInfo.fY));
 			break;
 
 		case MON_GUNTER:
-			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Ice>::Create(m_tInfo.fX, m_tInfo.fY));
 			break;
 
 		case MON_SLEEPY:
-			CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back()->SetDead();
 			CObjMgr::GetInst().Add_Create(OBJ_PLAYER, CFactory<CPlayer_Sleepy>::Create(m_tInfo.fX, m_tInfo.fY));
+			break;
+
+		default:
 			break;
 		}
 		dynamic_cast<CPlayer*> (CObjMgr::GetInst().GetObjectList(OBJ_PLAYER).back())->SetHpInput(m_iNowHp);
@@ -462,11 +443,6 @@ void CPlayer_Origin::Render(HDC _hDC)
 		(int)m_tInfo.fCX ,
 		(int)m_tInfo.fCY,
 		RGB(207, 176, 255));
-
-	//TCHAR		szHp[64] = L"";
-
-	//swprintf_s(szHp, L"X : %f \t Y : %f , ", m_tInfo.fX, m_tInfo.fY);
-	//TextOut(_hDC, 200, 500, szHp, lstrlen(szHp));
 }
 
 void CPlayer_Origin::Release()

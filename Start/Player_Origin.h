@@ -25,7 +25,7 @@ private:
 	void BaseAnim(int _iKey);
 	void InhalAnim(int _iKey);
 
-	bool InhalIDCheck();
+	void InhalIDCheck();
 
 protected:
 	virtual void KeyInput();
