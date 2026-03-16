@@ -84,7 +84,16 @@ void CPlayer_Origin::WaterMove()
 
 void CPlayer_Origin::BindPressing(int _iKey)
 {
-	m_bInhalCheck ? InhalAnim(_iKey) : BaseAnim(_iKey);
+	//m_bInhalCheck ? InhalAnim(_iKey) : BaseAnim(_iKey);
+
+	if (m_bInhalCheck)
+	{
+		InhalAnim(_iKey);
+	}
+	else
+	{
+		BaseAnim(_iKey);
+	}
 }
 
 void CPlayer_Origin::BaseAnim(int _iKey)
@@ -128,6 +137,7 @@ void CPlayer_Origin::InhalIDCheck()
 	{
 		pMonster->SetDead();
 		m_eMonsterID = pMonster->GetID();
+		m_bInhalCheck = true;
 	}
 }
 
